@@ -7,69 +7,40 @@ const Preloader = () => {
     const [percent, setPercent] = useState(0);
 
     useEffect(() => {
-        // Lock scroll during loading
         document.body.style.overflow = "hidden";
-
-        // Counter animation
         const timer = setInterval(() => {
             setPercent((prev) => {
                 if (prev >= 100) {
                     clearInterval(timer);
-                    setTimeout(() => setIsLoading(false), 500);
+                    setTimeout(() => setIsLoading(false), 800);
                     return 100;
                 }
-                return prev + 1;
+                const increment = Math.floor(Math.random() * 15) + 1;
+                return Math.min(prev + increment, 100);
             });
-        }, 20); // Controls loading speed
+        }, 50);
 
         return () => clearInterval(timer);
     }, []);
 
     useEffect(() => {
         if (!isLoading) {
-            // Unlock scroll after animations complete
             setTimeout(() => {
                 document.body.style.overflow = "auto";
             }, 1000);
         }
     }, [isLoading]);
 
-    const slideUp = {
-        initial: { y: 0 },
+    const containerVariants = {
         exit: {
-            y: "-100vh",
-            transition: { duration: 1.0, ease: [0.76, 0, 0.24, 1] }
+            y: "-100%",
+            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
         }
     };
 
-    // Letter animation for "HIICTPARK"
-    const container = {
-        hidden: { opacity: 0 },
-        visible: (i = 1) => ({
-            opacity: 1,
-            transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
-        }),
-    };
-
-    const child = {
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100,
-            },
-        },
-        hidden: {
-            opacity: 0,
-            y: 20,
-            transition: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100,
-            },
-        },
+    const textVariants = {
+        initial: { y: 40, opacity: 0 },
+        animate: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
     };
 
     return (
@@ -77,68 +48,66 @@ const Preloader = () => {
             {isLoading && (
                 <motion.div
                     key="preloader"
-                    variants={slideUp}
+                    variants={containerVariants}
                     initial="initial"
                     exit="exit"
-                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-primary"
-                    style={{ backgroundColor: '#300000' }}
+                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
                 >
-                    <div className="flex flex-col items-center justify-center z-10 w-full px-4 text-white">
+                    {/* Minimalist Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
+                        style={{ backgroundImage: 'radial-gradient(#003ECB 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }}
+                    />
 
-                        {/* Brand Logo - Animated */}
-                        <motion.div
-                            variants={container}
-                            initial="hidden"
-                            animate="visible"
-                            className="flex flex-col items-center mb-8"
-                        >
-                            <motion.span
-                                variants={child}
-                                className="text-4xl md:text-6xl font-serif italic mb-2 relative"
-                            >
-                                Abu Sayeed
-                                <span className="absolute inset-0 blur-lg opacity-40 text-white animate-pulse">Abu Sayeed</span>
-                            </motion.span>
+                    <div className="relative flex flex-col items-center">
 
-                            <motion.div
-                                variants={child}
-                                className="w-16 h-[1px] bg-white opacity-50 mb-2"
-                            />
-
-                            <motion.span
-                                variants={child}
-                                className="text-[10px] md:text-sm tracking-[0.4em] font-light uppercase opacity-90"
-                            >
-                                DESIGNER & TRAINER
-                            </motion.span>
-                        </motion.div>
-
-                        {/* Counter Section */}
-                        <div className="flex items-baseline space-x-2 relative mt-2">
-                            <h2 className="text-6xl md:text-8xl font-bold font-mono tracking-tighter">
-                                {percent}
-                            </h2>
-                            <span className="text-3xl md:text-4xl font-bold text-white/90 absolute -right-8 md:-right-10 top-2 md:top-4">%</span>
-                        </div>
-
-                        {/* Progress Bar with Glow */}
-                        <div className="w-64 md:w-96 h-2 bg-black/20 rounded-full mt-8 overflow-hidden backdrop-blur-sm border border-white/10">
-                            <motion.div
-                                className="h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]"
-                                initial={{ width: 0 }}
-                                animate={{ width: `${percent}%` }}
-                            />
-                        </div>
-
+                        {/* Status Label */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                            className="mt-6 text-white/90 font-semibold tracking-[0.4em] text-sm uppercase flex items-center gap-2"
+                            className="absolute -top-12 text-[10px] tracking-[0.5em] text-[#003ECB] font-bold uppercase"
                         >
-                            <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
-                            Loading Experience
-                            <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
+                            {percent < 100 ? "Innovating Future" : "Welcome"}
+                        </motion.div>
+
+                        {/* Centered Large Branding - Royal Blue & Gold */}
+                        <div className="overflow-hidden flex items-center mb-6">
+                            <motion.h1
+                                variants={textVariants}
+                                initial="initial"
+                                animate="animate"
+                                className="text-4xl md:text-6xl font-bold tracking-tight flex items-center gap-3"
+                            >
+                                <span className="text-[#003ECB]">ABU</span>
+                                <span className="text-[#D4AF37]">SAYEED</span>
+                            </motion.h1>
+                        </div>
+
+                        {/* High-End Progress Section */}
+                        <div className="flex flex-col items-center space-y-4">
+                            {/* Value Display */}
+                            <div className="text-3xl md:text-4xl font-light font-sans text-slate-300 tabular-nums">
+                                {percent.toString().padStart(3, '0')}
+                            </div>
+
+                            {/* Ultra Thin Progress Bar */}
+                            <div className="w-48 md:w-64 h-[2px] bg-slate-100 relative overflow-hidden rounded-full">
+                                <motion.div
+                                    className="absolute top-0 left-0 h-full bg-[#003ECB]"
+                                    initial={{ width: "0%" }}
+                                    animate={{ width: `${percent}%` }}
+                                    transition={{ type: "spring", bounce: 0 }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Footer Subtext */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.4 }}
+                            transition={{ delay: 0.5 }}
+                            className="mt-12 text-[8px] tracking-[0.3em] text-[#003ECB] font-bold uppercase"
+                        >
+                            Designer • Developer • Mentor
                         </motion.div>
                     </div>
                 </motion.div>
