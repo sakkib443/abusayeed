@@ -1,0 +1,96 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { fetchCategories } from "@/redux/categorySlice";
+import Hero from "@/components/Home/Hero";
+
+import PopularDesign from "@/components/Home/PopularDesign";
+import AIShowcase from "@/components/Home/AIShowcase";
+
+import DigitalAssets from "@/components/Home/DigitalAssets";
+import AboutMe from "@/components/Home/AboutMe";
+import BlogSection from "@/components/Home/BlogSection";
+import Testimonials from "@/components/Home/Testimonials";
+
+import CategoryShowcase from "@/components/Home/CategoryShowcase";
+import CounterSection from "@/components/Home/CounterSection";
+import { fetchCoursesData } from "@/redux/CourseSlice";
+import { fetchDesignTemplates } from "@/redux/designTemplateSlice";
+import Lenis from 'lenis';
+
+const HomePage = () => {
+  const dispatch = useDispatch();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+
+    // Initialize Lenis Smooth Scroll - Only on desktop
+    if (window.innerWidth > 768) {
+      const lenis = new Lenis({
+        duration: 1.0,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 0.8,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+
+      return () => {
+        lenis.destroy();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      dispatch(fetchCoursesData());
+      dispatch(fetchCategories());
+      dispatch(fetchDesignTemplates({ limit: 8 }));
+    }
+  }, [dispatch, mounted]);
+
+  return (
+    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-red-500 selection:text-black font-poppins antialiased">
+      <main className="relative">
+        {/* Hero Section */}
+        <section className="relative w-full overflow-hidden z-0 bg-white dark:bg-black">
+          <Hero />
+        </section>
+
+        <CounterSection />
+
+        <CategoryShowcase />
+
+
+
+
+
+
+
+        {/* Other Sections */}
+        <section className="relative z-10 bg-white dark:bg-[#020202]">
+          <PopularDesign />
+          <AIShowcase />
+          <DigitalAssets />
+          <AboutMe />
+          <BlogSection />
+          <Testimonials />
+        </section>
+      </main>
+    </div>
+  );
+};
+
+export default HomePage;
