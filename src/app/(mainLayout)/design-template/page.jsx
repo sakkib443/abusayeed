@@ -1,6 +1,6 @@
 "use client";
 import { API_URL } from '@/config/api';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +17,7 @@ import ProductCard from "@/components/sheard/ProductCard";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
-const DesignTemplatePage = () => {
+const DesignTemplateContent = () => {
     const { language } = useLanguage();
     const { theme } = useTheme();
     const isDark = theme === "dark";
@@ -337,6 +337,21 @@ const DesignTemplatePage = () => {
                 </div>
             </main>
         </div>
+    );
+};
+
+const DesignTemplatePage = () => {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-white dark:bg-[#020202] flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-[#003ECB]/20 border-t-[#003ECB] rounded-full animate-spin" />
+                    <p className="text-slate-500 animate-pulse font-medium">Loading templates...</p>
+                </div>
+            </div>
+        }>
+            <DesignTemplateContent />
+        </Suspense>
     );
 };
 

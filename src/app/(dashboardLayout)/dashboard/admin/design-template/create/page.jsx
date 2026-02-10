@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -73,7 +73,7 @@ const designTemplateSchema = z.object({
   fontIncluded: z.boolean().optional(),
 });
 
-export default function CreateDesignTemplatePage() {
+function CreateDesignTemplateContent() {
   const { isDark } = useTheme();
   const [loading, setLoading] = useState(false);
   const [fetchingData, setFetchingData] = useState(false);
@@ -832,5 +832,20 @@ export default function CreateDesignTemplatePage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function CreateDesignTemplatePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="text-center">
+          <FiLoader className="animate-spin text-blue-500 mx-auto mb-3" size={32} />
+          <p className="text-sm text-gray-500">Loading...</p>
+        </div>
+      </div>
+    }>
+      <CreateDesignTemplateContent />
+    </Suspense>
   );
 }
