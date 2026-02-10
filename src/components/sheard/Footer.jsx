@@ -168,13 +168,13 @@ const Footer = () => {
               {language === 'bn' ? 'যোগাযোগ' : 'Get in touch'}
             </h4>
             <div className="space-y-6">
-              <a href="tel:+8801741117701" className="group flex items-start gap-4">
+              <a href="tel:+8801516153972" className="group flex items-start gap-4">
                 <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:border-[#003ECB] group-hover:bg-[#003ECB]/10 transition-all duration-300">
                   <IoCallOutline className="text-[#003ECB]" size={20} />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Phone</p>
-                  <p className="text-[14px] text-slate-300 group-hover:text-white transition-colors">+88 01741 117701</p>
+                  <p className="text-[14px] text-slate-300 group-hover:text-white transition-colors">+880 1516-153972</p>
                 </div>
               </a>
               <a href="mailto:info@abusayeed.com" className="group flex items-start gap-4">

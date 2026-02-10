@@ -47,7 +47,7 @@ const ContactPage = () => {
   const [content, setContent] = useState({
     contactInfo: {
       email: 'info@jayeduddin.com',
-      phone: '+880 1829-818616',
+      phone: '+880 1516-153972',
       address: 'Dhaka, Bangladesh',
       addressBn: 'ঢাকা, বাংলাদেশ',
       officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
