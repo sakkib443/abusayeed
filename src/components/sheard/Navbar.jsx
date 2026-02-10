@@ -13,6 +13,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo";
+import CategoryNav from "./CategoryNav";
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -135,7 +136,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.15 }}
-                        className={`absolute top-full left-0 mt-2 w-72 max-h-[450px] overflow-y-auto rounded-xl border p-3 z-20 shadow-2xl scrollbar-none ${isDark ? "bg-[#111] border-white/10" : "bg-white border-gray-100"}`}
+                        className={`absolute top-full left-0 mt-2 w-72 max-h-[450px] overflow-y-auto rounded-xl border p-3 z-20 shadow-2xl scrollbar-hide ${isDark ? "bg-[#111] border-white/10" : "bg-white border-gray-100"}`}
                       >
                         {/* Static All Categories Option */}
                         <button
@@ -463,8 +464,12 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </motion.nav>
-      {/* Spacer */}
-      <div className={`${isSticky ? "h-[70px]" : "h-[90px]"} transition-all duration-300`} />
+
+      {/* Category Navigation Bar - Outside main nav */}
+      {!isMobileMenuOpen && <CategoryNav />}
+
+      {/* Spacer - Adjusted for Navbar + CategoryNav */}
+      <div className={`${isSticky ? "h-[75px]" : "h-[80px]"} transition-all duration-300`} />
     </>
   );
 };

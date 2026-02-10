@@ -2,6 +2,7 @@
 import { API_URL } from '@/config/api';
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from "framer-motion";
 import {
     LuPalette,
@@ -21,9 +22,12 @@ const DesignTemplatePage = () => {
     const { theme } = useTheme();
     const isDark = theme === "dark";
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+    const searchParams = useSearchParams();
+    const categoryFromUrl = searchParams.get('category');
+
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl || "all");
     const [selectedType, setSelectedType] = useState("all");
     const [selectedRating, setSelectedRating] = useState("all");
     const [selectedPrice, setSelectedPrice] = useState("all");
@@ -32,6 +36,7 @@ const DesignTemplatePage = () => {
     const [templates, setTemplates] = useState([]);
     const [categories, setCategories] = useState([]);
     const [openFilter, setOpenFilter] = useState(null); // To track which dropdown is open
+
 
     // Fetch design templates from API with filter params
     useEffect(() => {
@@ -63,6 +68,13 @@ const DesignTemplatePage = () => {
 
         fetchTemplates();
     }, [selectedCategory, selectedType, selectedRating, selectedPrice, sortBy]);
+
+    // Update selected category when URL changes
+    useEffect(() => {
+        if (categoryFromUrl) {
+            setSelectedCategory(categoryFromUrl);
+        }
+    }, [categoryFromUrl]);
 
     // Initial fetch for categories
     useEffect(() => {
@@ -169,7 +181,7 @@ const DesignTemplatePage = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-[#020202]">
             {/* Premium Heading Section */}
-            <header className="pt-24 pb-12 bg-white dark:bg-[#020202]">
+            <header className="pt-6 pb-8 bg-white dark:bg-[#020202]">
                 <div className="container mx-auto px-6 max-w-[1600px]">
                     <div className="flex flex-col md:flex-row items-end justify-between gap-6">
                         <div className="max-w-2xl">

@@ -189,7 +189,7 @@ const CourseContent = () => {
     <div className="min-h-screen bg-white dark:bg-[#020202]">
       {/* Header Section */}
       {/* Premium Heading Section */}
-      <header className="pt-24 pb-12 bg-white dark:bg-[#020202]">
+      <header className="pt-6 pb-8 bg-white dark:bg-[#020202]">
         <div className="container mx-auto px-6 max-w-[1600px]">
           <div className="flex flex-col md:flex-row items-end justify-between gap-6">
             <div className="max-w-2xl text-left">
