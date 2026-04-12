@@ -46,10 +46,10 @@ const ContactPage = () => {
   const [messageSent, setMessageSent] = useState(false);
   const [content, setContent] = useState({
     contactInfo: {
-      email: 'info@jayeduddin.com',
+      email: 'creativesolvecs@gmail.com',
       phone: '+880 1516-153972',
-      address: 'Dhaka, Bangladesh',
-      addressBn: 'ঢাকা, বাংলাদেশ',
+      address: 'Bogura, Bangladesh',
+      addressBn: 'বগুড়া, বাংলাদেশ',
       officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
       officeHoursBn: 'শনি - বৃহঃ: সকাল ১০টা - সন্ধ্যা ৬টা'
     }
@@ -90,10 +90,11 @@ const ContactPage = () => {
                 <span className="text-slate-600 dark:text-slate-200">Contact</span>
               </nav>
               <h1 className={`text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 ${bengaliClass}`}>
-                {language === 'bn' ? 'আমাদের সাথে যোগাযোগ করুন' : 'Contact Our Academy'}
+                {language === 'bn' ? 'আমাদের সাথে যোগাযোগ করুন' : 'Get in Touch with Us'}
               </h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium max-w-xl">
-                We're here to help you achieve your creative goals. Reach out to us for any inquiries regarding courses, admissions, or support.
+                Have a question about courses, admissions, or design services? Reach out to Md. Abu Sayeed and the
+                Creative Solve CS team — we&apos;re happy to help!
               </p>
             </div>
             <div className="flex flex-wrap lg:justify-end gap-3">

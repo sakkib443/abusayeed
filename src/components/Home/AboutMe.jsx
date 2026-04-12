@@ -16,18 +16,18 @@ const AboutMe = () => {
     const achievements = [
         {
             icon: <LuAward size={20} />,
-            value: "20+",
+            value: "12+",
             label: language === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'
         },
         {
             icon: <LuUsers size={20} />,
-            value: "15K+",
-            label: language === 'bn' ? 'শিক্ষার্থী' : 'Students Trained'
+            value: "4500+",
+            label: language === 'bn' ? 'শিক্ষার্থী প্রশিক্ষিত' : 'Students Trained'
         },
         {
             icon: <LuBookOpen size={20} />,
-            value: "50+",
-            label: language === 'bn' ? 'কোর্স' : 'Courses Created'
+            value: "4",
+            label: language === 'bn' ? 'বিশেষত্ব' : 'Specializations'
         }
     ];
 
@@ -49,8 +49,8 @@ const AboutMe = () => {
                             {/* Main Image */}
                             <div className="relative rounded-2xl overflow-hidden aspect-[4/5] max-w-md">
                                 <img
-                                    src="/about_instructor.png"
-                                    alt="Abu Sayeed"
+                                    src="/images/Abu sayeed-CEO-CS Creative Solution-03.svg"
+                                    alt="Md. Abu Sayeed — Founder & CEO, Creative Solve CS"
                                     className="w-full h-full object-cover"
                                 />
                                 {/* Overlay Gradient */}
@@ -65,7 +65,7 @@ const AboutMe = () => {
                                 className={`absolute -bottom-6 -right-6 md:right-auto md:-left-6 px-6 py-4 rounded-xl shadow-xl ${isDark ? 'bg-[#111] border border-white/10' : 'bg-white border border-gray-100'}`}
                             >
                                 <div className="text-center">
-                                    <span className="text-3xl font-bold text-[#003ECB]">20+</span>
+                                    <span className="text-3xl font-bold text-[#003ECB]">12+</span>
                                     <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                         {language === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}
                                     </p>
@@ -96,17 +96,17 @@ const AboutMe = () => {
                         </motion.div>
 
                         {/* Heading */}
-                        <h2 className={`text-3xl md:text-4xl font-heading font-normal tracking-tight leading-[1.2] ${isDark ? "text-white" : "text-slate-900"} ${bengaliClass}`}>
+                        <h2 className={`text-3xl md:text-4xl font-heading font-bold tracking-tight leading-[1.2] ${isDark ? "text-white" : "text-slate-900"} ${bengaliClass}`}>
                             {language === 'bn'
-                                ? 'পেশাদার ডিজাইন ইন্সট্রাক্টর ও মেন্টর'
-                                : 'Professional Design Instructor & Creative Mentor'}
+                                ? 'পেশাদার গ্রাফিক ডিজাইন ইন্সট্রাক্টর'
+                                : 'Creative Graphic & Visual Designer'}
                         </h2>
 
                         {/* Description */}
                         <p className={`text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"} ${bengaliClass}`}>
                             {language === 'bn'
-                                ? 'আমি আবু সাঈদ, ২০ বছরেরও বেশি সময় ধরে গ্রাফিক ডিজাইন এবং ডিজিটাল আর্ট শেখাচ্ছি। আমার লক্ষ্য হলো প্রতিটি শিক্ষার্থীকে পেশাদার ডিজাইনার হিসেবে গড়ে তোলা।'
-                                : 'I am Abu Sayeed, a passionate design educator with over 20 years of experience in graphic design and digital art. My mission is to transform every student into a professional designer.'}
+                                ? 'আমি মোঃ আবু সাঈদ, গ্রাফিক ডিজাইন বিভাগের প্রধান। ব্র্যান্ড ডিজাইন, লোগো ডিজাইন, UI/UX এবং অ্যানিমেশনে দক্ষ একজন পেশাদার ট্রেইনার হিসেবে আমি ১২ বছরে ৪৫০০+ শিক্ষার্থীকে প্রশিক্ষণ দিয়েছি।'
+                                : 'I am Md. Abu Sayeed, Department Head specializing in Graphic Design. With expertise in Brand Design, Logo Design, UI/UX and Animation — I have trained 4500+ students across 12 years of dedicated professional teaching.'}
                         </p>
 
                         {/* Stats Row */}

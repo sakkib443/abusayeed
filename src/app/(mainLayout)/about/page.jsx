@@ -5,273 +5,372 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "@/context/ThemeContext";
 import {
-  LuTarget,
-  LuUsers,
-  LuBookOpen,
-  LuMoveRight,
-  LuSparkles,
-  LuCheck,
   LuGraduationCap,
+  LuBriefcase,
+  LuMoveRight,
+  LuCheck,
   LuAward,
-  LuGlobe,
-  LuQuote,
-  LuLightbulb,
-  LuShieldCheck,
-  LuMonitor,
+  LuUsers,
   LuPalette,
-  LuStar
 } from "react-icons/lu";
 
-const StatCard = ({ number, label, icon: Icon, idx }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: idx * 0.1, duration: 0.5 }}
-    className="relative p-8 bg-white dark:bg-[#0a0a0a] rounded-2xl border border-slate-100 dark:border-white/5 group hover:border-[#003ECB]/30 transition-all duration-500 shadow-sm"
-  >
-    <div className="relative z-10">
-      <div className="w-12 h-12 mb-6 rounded-xl bg-[#003ECB]/5 dark:bg-[#003ECB]/10 flex items-center justify-center group-hover:bg-[#003ECB] group-hover:text-white transition-all duration-500">
-        <Icon className="w-5 h-5 text-[#003ECB] group-hover:text-white transition-colors duration-500" />
-      </div>
-      <h3 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-1 tabular-nums">{number}</h3>
-      <p className="text-[10px] text-slate-400 dark:text-gray-500 font-bold uppercase tracking-widest">{label}</p>
-    </div>
-  </motion.div>
-);
+/* ─────────── data ─────────── */
+const stats = [
+  { number: "12+", label: "Years Experience", icon: LuAward },
+  { number: "4500+", label: "Students Trained", icon: LuUsers },
+  { number: "4", label: "Specializations", icon: LuPalette },
+];
 
-const AboutPage = () => {
+const education = [
+  "MSC in Geography & Environment",
+  "Diploma in Graphic Design",
+  "Diploma in Computer Software Application",
+  "Graphic Design Assessor & Trainer CBT&A (Level-4)",
+  "TOT — On Graphic Design",
+];
+
+const workExperience = [
+  { role: "Graphic Design Assessor & Trainer CBT&A (Level-4)", org: "BTEB & NSDA" },
+  { role: "Master Trainer", org: "SEIP-Project, Bangladesh Ministry of ICT" },
+  { role: "Trainer", org: "LGSP-Project, DC Office, Bogura" },
+  { role: "Guest Instructor", org: "NECTAR" },
+  { role: "Mentor", org: "LEDP-Project, BCS-PRIMAX Software & Pencil Box" },
+  { role: "Mentor", org: "Asset-Project, SAIC Group" },
+  { role: "Mentor", org: "BYETS-Project, Swisscontact" },
+  { role: "Graphic Design In-charge", org: "SEO Experte Bangladesh Ltd" },
+  { role: "Freelancer", org: "International Platforms" },
+];
+
+const skills = ["Graphic Design", "UI/UX Design", "Adobe Premiere Pro", "After Effects", "Brand Design", "Logo Design", "Animation"];
+
+/* ─────────── component ─────────── */
+export default function AboutPage() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#020202] text-slate-900 dark:text-slate-100 selection:bg-[#003ECB] selection:text-white font-body">
+    <main className="min-h-screen bg-white dark:bg-[#020202] text-slate-900 dark:text-white selection:bg-[#003ECB] selection:text-white">
 
-      {/* 1. Hero Section - Refined Proportions */}
-      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden z-10 border-b border-slate-50 dark:border-white/5">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* ══════════════════════════════════════════
+          SECTION 1 — HERO
+      ══════════════════════════════════════════ */}
+      <section className="relative pt-20 pb-20 lg:pt-24 overflow-hidden border-b border-slate-100 dark:border-white/5">
 
-            {/* Content Left */}
-            <div className="max-w-xl">
+        {/* Subtle bg glow — matches site */}
+        <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-[#003ECB]/4 rounded-full blur-[120px] pointer-events-none dark:bg-[#003ECB]/8" />
+
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* ── Left ── */}
+            <div>
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-2 mb-6"
-              >
-                <span className="w-8 h-[1px] bg-[#003ECB]" />
-                <span className="text-[#003ECB] font-bold text-[10px] uppercase tracking-[0.3em]">
-                  {language === 'bn' ? 'আমাদের সম্পর্কে' : 'Our Story'}
-                </span>
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#003ECB]/20 bg-[#003ECB]/5">
+                <span className="w-2 h-2 rounded-full bg-[#003ECB] animate-pulse" />
+                <span className="text-[#003ECB] text-xs font-bold tracking-widest uppercase">Creative Designer &amp; Educator</span>
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                className={`text-[36px] md:text-[50px] font-heading font-bold tracking-tight leading-[1.1] text-slate-900 dark:text-white mb-6 ${bengaliClass}`}
-              >
-                {language === 'bn' ? (
-                  <>সৃজনশীলতা এবং <span className="text-[#003ECB]">প্রযুক্তির</span> এক অনন্য মেলবন্ধন</>
-                ) : (
-                  <>Shaping the Future of <span className="text-[#003ECB]">Digital Craft</span> and Education</>
-                )}
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.05 }}
+                className="text-5xl md:text-6xl lg:text-[64px] font-heading font-black tracking-tight leading-[1.05] mb-5 text-slate-900 dark:text-white">
+                Md. Abu<br />
+                <span className="text-[#003ECB]">Sayeed</span>
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-sm md:text-base text-slate-500 dark:text-slate-400 mb-8 leading-relaxed font-normal"
-              >
-                {language === 'bn'
-                  ? 'আমরা ২০ বছরেরও বেশি সময় ধরে ডিজিটাল ফিল্ডে কাজ করছি। আমাদের লক্ষ্য শুধুমাত্র স্কিল তৈরি করা নয়, বরং বাংলাদেশের তরুণদের জন্য ফ্রিল্যান্সিং এবং গ্লোবাল মার্কেটের এক মজবুত ভিত্তি গড়ে তোলা।'
-                  : 'With over two decades of presence in the digital landscape, we are more than just an academy. We are a bridge between untapped local talent and high-end global standards.'}
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-slate-500 dark:text-slate-400 text-base leading-relaxed max-w-lg mb-6">
+                Department Head specializing in Graphic Design with a strong foundation in Brand Design,
+                Logo Design, and Animation. Educated over{" "}
+                <span className="text-slate-900 dark:text-white font-semibold">4500+ students</span>{" "}
+                across 12 years of dedicated professional training.
               </motion.p>
 
+              {/* Skill tags */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-wrap gap-4 items-center"
-              >
-                <Link href="/courses">
-                  <button className="px-8 py-3.5 bg-[#003ECB] text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#002da3] transition-all flex items-center gap-3 group">
-                    {language === 'bn' ? 'কোর্সগুলো দেখুন' : 'Explore Academy'}
-                    <LuMoveRight className="group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </Link>
-                <div className="flex items-center gap-3 px-4 py-3 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-[#020202] bg-slate-200 overflow-hidden">
-                        <img src={`https://i.pravatar.cc/100?u=user${i + 40}`} alt="Student" />
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-[10px] font-bold text-slate-700 dark:text-slate-300">50k+ Members</p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Right Visual */}
-            <div className="relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1 }}
-                className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-slate-100 dark:border-white/5"
-              >
-                <Image
-                  src="/images/about-hero.png"
-                  alt="Modern Studio"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+                className="flex flex-wrap gap-2 mb-8">
+                {skills.map((s) => (
+                  <span key={s}
+                    className="px-3 py-1.5 text-[11px] font-semibold rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-[#003ECB]/40 hover:text-[#003ECB] dark:hover:text-white transition-colors cursor-default">
+                    {s}
+                  </span>
+                ))}
               </motion.div>
 
-              {/* Floating Meta Card */}
+              {/* Stat pills */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="absolute -bottom-6 -left-6 md:-left-12 p-5 bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-slate-100 dark:border-white/10 flex items-center gap-4"
-              >
-                <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white">
-                  <LuCheck size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-800 dark:text-white leading-tight">ISO Standard Verified</p>
-                  <p className="text-[9px] text-slate-400 dark:text-gray-500 uppercase tracking-widest mt-1">International Academy</p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Philosophy - Compact & Sharp */}
-      <section className="py-24 bg-slate-950 relative overflow-hidden">
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <LuQuote size={48} className="text-[#003ECB] mb-6 mx-auto opacity-50" />
-            <h2 className="text-2xl md:text-3xl font-heading font-normal text-white mb-10 leading-relaxed italic">
-              {language === 'bn'
-                ? '"পেশাদারিত্ব মানে শুধু কাজ শেষ করা নয়, পেশাদারিত্ব মানে হলো প্রতিজ্ঞা রক্ষা করা এবং সর্বোচ্চ গুণমান বজায় রাখা।"'
-                : '"Professionalism isn\'t about the job you do; it\'s about how you do it and the legacy you leave behind."'}
-            </h2>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#003ECB] mb-3">
-                <img src="/images/founder.png" alt="Founder" className="w-full h-full object-cover" />
-              </div>
-              <p className="text-white text-sm font-bold">Abu Sayeed</p>
-              <p className="text-[#003ECB] text-[10px] uppercase tracking-widest">Founder & Mentor</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[
-              { icon: LuTarget, title: "Our Mission", desc: "Digital literacy for everyone." },
-              { icon: LuGlobe, title: "Global standards", desc: "Local talent, global stage." },
-              { icon: LuLightbulb, title: "Innovation", desc: "Future-proof curriculum." },
-              { icon: LuShieldCheck, title: "Excellence", desc: "No compromise on quality." },
-            ].map((item, i) => (
-              <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
-                <item.icon size={20} className="text-[#003ECB] mb-4" />
-                <h4 className="font-bold text-white text-xs uppercase tracking-widest mb-2">{item.title}</h4>
-                <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Stats Section - Clean & Balanced */}
-      <section className="py-24 container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <StatCard number="50k+" label="Global Students" icon={LuUsers} idx={0} />
-          <StatCard number="20+" label="Years Experience" icon={LuAward} idx={1} />
-          <StatCard number="850+" label="Premium Assets" icon={LuPalette} idx={2} />
-          <StatCard number="4.9" label="User Rating" icon={LuStar} idx={3} />
-        </div>
-      </section>
-
-      {/* 4. Pillars of Excellence */}
-      <section className="py-24 bg-slate-50 dark:bg-[#0a0a0a] border-y border-slate-100 dark:border-white/5">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col md:flex-row items-center gap-16">
-            <div className="w-full md:w-1/2">
-              <h2 className={`text-3xl md:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-10 leading-tight ${bengaliClass}`}>
-                {language === 'bn' ? 'আমাদের এগিয়ে চলার মূল স্তম্ভ' : 'Our Pillars of Excellence'}
-              </h2>
-              <div className="grid gap-8">
-                {[
-                  { icon: LuBookOpen, title: "Industry Led Curriculum", desc: "Every lesson is designed based on current market demands." },
-                  { icon: LuGraduationCap, title: "Expert Mentorship", desc: "Direct guidance from instructors with 20+ years of industry experience." },
-                  { icon: LuTarget, title: "Practical Exposure", desc: "Working on real projects to build a professional portfolio." }
-                ].map((pill, i) => (
-                  <div key={i} className="flex gap-5">
-                    <div className="w-10 h-10 rounded-lg bg-[#003ECB] flex items-center justify-center text-white shrink-0">
-                      <pill.icon size={18} />
-                    </div>
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
+                className="flex flex-wrap gap-3 mb-10">
+                {stats.map(({ number, label, icon: Icon }, i) => (
+                  <div key={i}
+                    className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8">
+                    <Icon size={18} className="text-[#003ECB] shrink-0" />
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1 tracking-wide uppercase">{pill.title}</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">{pill.desc}</p>
+                      <p className="text-slate-900 dark:text-white font-black text-lg leading-none">{number}</p>
+                      <p className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-0.5">{label}</p>
                     </div>
                   </div>
                 ))}
-              </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4">
+                <Link href="/courses">
+                  <button className="group px-8 py-3.5 bg-[#003ECB] hover:bg-[#002da3] text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center gap-3 shadow-[0_8px_30px_rgba(0,62,203,0.25)]">
+                    Explore Courses
+                    <LuMoveRight className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+                <Link href="/contact">
+                  <button className="px-8 py-3.5 border border-slate-200 dark:border-white/15 hover:border-[#003ECB]/50 text-slate-600 dark:text-slate-300 hover:text-[#003ECB] dark:hover:text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all">
+                    Contact Us
+                  </button>
+                </Link>
+              </motion.div>
             </div>
 
-            <div className="w-full md:w-1/2 relative">
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-white/10">
-                <Image src="/images/office-showcase.png" fill className="object-cover" alt="Support" />
+            {/* ── Right — Abu Sayeed SVG ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}
+              className="relative flex justify-center lg:justify-end">
+
+              <div className="relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border border-slate-100 dark:border-white/8 bg-slate-50 dark:bg-white/3 shadow-xl">
+                <Image
+                  src="/images/Abu sayeed-CEO-CS Creative Solution-03.svg"
+                  alt="Md. Abu Sayeed — Creative Designer & Educator"
+                  fill
+                  className="object-contain p-6"
+                  priority
+                />
+                {/* Bottom overlay */}
+                <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-50 dark:from-[#020202] to-transparent" />
+
+                {/* Badge */}
+                <div className="absolute bottom-5 left-4 right-4 flex items-center gap-3 p-4 rounded-2xl bg-white dark:bg-[#111] border border-slate-100 dark:border-white/10 shadow-lg backdrop-blur-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#003ECB] flex items-center justify-center shrink-0">
+                    <LuAward size={18} className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-slate-900 dark:text-white text-xs font-bold leading-tight">CBT&amp;A Level-4 Certified</p>
+                    <p className="text-slate-400 dark:text-slate-500 text-[10px] mt-0.5">BTEB &amp; NSDA Assessor &amp; Trainer</p>
+                  </div>
+                </div>
               </div>
-              <div className="absolute -top-8 -right-8 w-16 h-16 bg-[#003ECB] rounded-full flex items-center justify-center text-white animate-pulse">
-                <LuSparkles size={24} />
-              </div>
-            </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* 5. CTA - Refined & Professional */}
-      <section className="py-32 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <div className="relative bg-[#003ECB] rounded-3xl p-12 md:p-16 text-center overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl opacity-50" />
+      {/* ══════════════════════════════════════════
+          SECTION 2 — EDUCATION & EXPERIENCE
+      ══════════════════════════════════════════ */}
+      <section className="py-24 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
+        <div className="container mx-auto px-6 max-w-7xl">
 
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6 tracking-tight leading-tight">
-                {language === 'bn' ? 'সফলতার নতুন গল্প লিখুন আজই' : 'Start Your Success Story Today'}
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="mb-14">
+            <span className="text-[#003ECB] text-[10px] font-black uppercase tracking-[0.3em]">Background</span>
+            <h2 className="text-4xl md:text-5xl font-heading font-black text-slate-900 dark:text-white mt-2">
+              Education &amp; <span className="text-[#003ECB]">Experience</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+
+            {/* Education */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-8 rounded-2xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#111]">
+
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-[#003ECB] flex items-center justify-center">
+                  <LuGraduationCap size={22} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white">Education</h3>
+                  <p className="text-slate-400 text-xs">Academic Qualifications</p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {education.map((item, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i }} viewport={{ once: true }}
+                    className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-100 dark:border-white/6 hover:border-[#003ECB]/30 transition-all">
+                    <div className="w-5 h-5 rounded-full bg-[#003ECB]/10 border border-[#003ECB]/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <LuCheck size={11} className="text-[#003ECB]" />
+                    </div>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-snug">{item}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Work Experience */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="p-8 rounded-2xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#111]">
+
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-[#003ECB] flex items-center justify-center">
+                  <LuBriefcase size={22} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white">Work Experience</h3>
+                  <p className="text-slate-400 text-xs">Professional Journey</p>
+                </div>
+              </div>
+
+              <div className="relative pl-5 border-l-2 border-[#003ECB]/20 space-y-5">
+                {workExperience.map((item, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i }} viewport={{ once: true }}
+                    className="relative group">
+                    <div className="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-[#003ECB] border-2 border-slate-50 dark:border-[#0a0a0a] group-hover:scale-125 transition-transform" />
+                    <p className="text-slate-900 dark:text-white text-sm font-semibold leading-snug">{item.role}</p>
+                    <p className="text-[#003ECB] text-xs mt-0.5 font-medium">{item.org}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 3 — LIFE JOURNEY + AGENCY
+      ══════════════════════════════════════════ */}
+      <section className="py-24 bg-white dark:bg-[#020202] border-b border-slate-100 dark:border-white/5">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+            {/* Life Journey */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <span className="text-[#003ECB] text-[10px] font-black uppercase tracking-[0.3em]">His Story</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-black text-slate-900 dark:text-white mt-2 mb-8 leading-tight">
+                Life <span className="text-[#003ECB]">Journey</span>
               </h2>
-              <p className="text-sm md:text-base text-white/70 mb-10 max-w-xl mx-auto font-light">
-                Join a global network of professionals who trust Abu Sayeed for the most practical and high-end digital education.
+
+              <div className="relative p-8 rounded-2xl border border-slate-100 dark:border-white/8 bg-slate-50 dark:bg-[#0a0a0a]">
+                {/* Big quote mark */}
+                <div className="absolute -top-5 left-6 text-[#003ECB]/15 dark:text-[#003ECB]/20 text-[100px] font-serif leading-none select-none">&ldquo;</div>
+
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-[1.9] relative z-10">
+                  Md. Abu Sayeed began his journey in the world of education and professional training with a passion for
+                  Graphic Design. After completing his{" "}
+                  <span className="text-slate-900 dark:text-white font-semibold">MSC in Geography &amp; Environment</span>,
+                  he quickly realized the importance of staying ahead in the digital and creative fields.
+                </p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm leading-[1.9] mt-4 relative z-10">
+                  With certification as an Assessor &amp; Trainer CBT&amp;A (Level-4), his early work at the SEIP-Project
+                  under the Bangladesh Ministry of ICT gave him deep insight into both academic and corporate training.
+                  His impact grew — training more than{" "}
+                  <span className="text-[#003ECB] font-bold">4500 students</span> over{" "}
+                  <span className="text-[#003ECB] font-bold">12 years</span>.
+                </p>
+
+                {/* Attribution */}
+                <div className="flex items-center gap-4 mt-8 pt-6 border-t border-slate-200 dark:border-white/8">
+                  <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
+                    <Image src="/images/founder.png" alt="Md. Abu Sayeed" width={48} height={48} className="object-cover w-full h-full" />
+                  </div>
+                  <div>
+                    <p className="text-slate-900 dark:text-white font-bold text-sm">Md. Abu Sayeed</p>
+                    <p className="text-[#003ECB] text-[11px] font-semibold uppercase tracking-widest">Founder &amp; Department Head</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Creative Solve CS */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+              <span className="text-[#003ECB] text-[10px] font-black uppercase tracking-[0.3em]">The Agency</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-black text-slate-900 dark:text-white mt-2 mb-8 leading-tight">
+                Creative <span className="text-[#003ECB]">Solve CS</span>
+              </h2>
+
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                A modern creative agency and learning platform with over{" "}
+                <span className="text-slate-900 dark:text-white font-semibold">13+ years</span> of professional experience
+                in graphic design and digital media solutions.
+              </p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-8">
+                At Creative Solve CS, we combine <span className="text-slate-800 dark:text-slate-200 font-medium">creativity</span>,{" "}
+                <span className="text-slate-800 dark:text-slate-200 font-medium">technology</span>, and{" "}
+                <span className="text-slate-800 dark:text-slate-200 font-medium">marketing strategy</span> to deliver
+                impactful results for every client.
               </p>
 
+              {/* Services grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {["Graphic Design", "Branding & Logo", "Motion Graphics", "Social Media Reels", "Professional Videography", "Design Training"].map((s, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i }} viewport={{ once: true }}
+                    className="flex items-center gap-2.5 p-3.5 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 hover:border-[#003ECB]/40 transition-all group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#003ECB] shrink-0" />
+                    <span className="text-slate-600 dark:text-slate-300 text-xs font-medium group-hover:text-[#003ECB] dark:group-hover:text-white transition-colors">{s}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 4 — CTA
+      ══════════════════════════════════════════ */}
+      <section className="py-28 px-6 bg-white dark:bg-[#020202]">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="relative rounded-3xl overflow-hidden shadow-2xl">
+
+            {/* Background */}
+            <div className="absolute inset-0 bg-[#003ECB]" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#002da3] rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl" />
+
+            <div className="relative z-10 p-12 md:p-20 text-center">
+              <h2 className="text-4xl md:text-5xl font-heading font-black text-white mb-5 leading-tight">
+                Start Your Success Story
+              </h2>
+              <p className="text-white/70 text-base mb-10 max-w-lg mx-auto leading-relaxed">
+                Join <span className="text-white font-semibold">4500+ students</span> who have transformed their careers
+                under the guidance of Md. Abu Sayeed &amp; Creative Solve CS.
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/courses">
-                  <button className="px-10 py-3.5 bg-white text-[#003ECB] rounded-full font-bold text-xs uppercase tracking-widest hover:bg-slate-50 transition-all">
+                  <button className="px-10 py-4 bg-white text-[#003ECB] rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-100 transition-all shadow-xl">
                     Explore All Courses
                   </button>
                 </Link>
                 <Link href="/contact">
-                  <button className="px-10 py-3.5 border border-white/30 text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
-                    Contact Us
+                  <button className="px-10 py-4 border border-white/25 text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
+                    Get in Touch
                   </button>
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
-    </div>
-  );
-};
 
-export default AboutPage;
+    </main>
+  );
+}

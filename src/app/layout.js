@@ -65,9 +65,9 @@ export const metadata = {
   description:
     "Abu Sayeed - A premium IT training and creative platform dedicated to empowering individuals with industry-leading skills in design, development, and digital arts.",
   icons: {
-    icon: "/images/ejobsitlogo.png",
-    shortcut: "/images/ejobsitlogo.png",
-    apple: "/images/ejobsitlogo.png",
+    icon: "/images/favicon.svg",
+    shortcut: "/images/favicon.svg",
+    apple: "/images/favicon.svg",
   },
 };
 
