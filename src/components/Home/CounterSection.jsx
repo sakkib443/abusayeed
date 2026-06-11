@@ -96,7 +96,7 @@ const CounterSection = () => {
                 className="flex flex-col items-center text-center group"
             >
                 {/* Icon */}
-                <div className={`w-10 h-10 rounded-md flex items-center justify-center mb-3 transition-colors ${isDark ? 'bg-white/5 text-[#003ECB] group-hover:bg-[#003ECB]/20' : 'bg-[#003ECB]/5 text-[#003ECB] group-hover:bg-[#003ECB]/10'}`}>
+                <div className={`w-10 h-10 rounded-md flex items-center justify-center mb-3 transition-colors ${isDark ? 'bg-white/5 text-[#0182E6] group-hover:bg-[#0182E6]/20' : 'bg-[#0182E6]/5 text-[#0182E6] group-hover:bg-[#0182E6]/10'}`}>
                     {stat.icon}
                 </div>
 
@@ -116,7 +116,7 @@ const CounterSection = () => {
     return (
         <section
             ref={ref}
-            className={`py-12 md:py-16 transition-colors duration-500 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'}`}
+            className={`py-14 md:py-16 transition-colors duration-500 ${isDark ? 'bg-[#0a0a0a]' : 'bg-[#f8fafc]'}`}
         >
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Stats Grid */}
@@ -129,7 +129,7 @@ const CounterSection = () => {
                 {/* Decorative Line */}
                 <div className="mt-10 flex items-center justify-center">
                     <div className={`w-32 h-[1px] ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
-                    <div className="w-2 h-2 rounded-full bg-[#003ECB] mx-4" />
+                    <div className="w-2 h-2 rounded-full bg-[#F78F18] mx-4" />
                     <div className={`w-32 h-[1px] ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
                 </div>
             </div>

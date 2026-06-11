@@ -13,7 +13,7 @@ const MainLayout = ({ children }) => {
     return (
         <AdminEditProvider>
             <div>
-                {/* <TopHeader /> */}
+                <TopHeader />
                 <Navbar />
                 {children}
                 <Footer />

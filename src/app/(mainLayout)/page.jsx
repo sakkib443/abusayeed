@@ -7,7 +7,6 @@ import { fetchCategories } from "@/redux/categorySlice";
 import Hero from "@/components/Home/Hero";
 
 import PopularDesign from "@/components/Home/PopularDesign";
-import AIShowcase from "@/components/Home/AIShowcase";
 
 import DigitalAssets from "@/components/Home/DigitalAssets";
 import AboutMe from "@/components/Home/AboutMe";
@@ -82,7 +81,6 @@ const HomePage = () => {
         {/* Other Sections */}
         <section className="relative z-10 bg-white dark:bg-[#020202]">
           <PopularDesign />
-          <AIShowcase />
           <DigitalAssets />
           <AboutMe />
           <BlogSection />

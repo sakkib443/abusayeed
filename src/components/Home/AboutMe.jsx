@@ -32,7 +32,7 @@ const AboutMe = () => {
     ];
 
     return (
-        <section className={`py-24 transition-colors duration-500 overflow-hidden ${isDark ? "bg-[#0a0a0a]" : "bg-white"}`}>
+        <section className={`py-20 md:py-24 transition-colors duration-500 overflow-hidden ${isDark ? "bg-[#050505]" : "bg-white"}`}>
             <div className="container mx-auto px-4 max-w-7xl">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -65,7 +65,7 @@ const AboutMe = () => {
                                 className={`absolute -bottom-6 -right-6 md:right-auto md:-left-6 px-6 py-4 rounded-xl shadow-xl ${isDark ? 'bg-[#111] border border-white/10' : 'bg-white border border-gray-100'}`}
                             >
                                 <div className="text-center">
-                                    <span className="text-3xl font-bold text-[#003ECB]">12+</span>
+                                    <span className="text-3xl font-bold text-[#0182E6]">12+</span>
                                     <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                         {language === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}
                                     </p>
@@ -73,7 +73,7 @@ const AboutMe = () => {
                             </motion.div>
 
                             {/* Decorative Element */}
-                            <div className={`absolute -z-10 top-8 -right-8 w-full h-full rounded-2xl ${isDark ? 'bg-[#003ECB]/10' : 'bg-[#003ECB]/5'}`} />
+                            <div className={`absolute -z-10 top-8 -right-8 w-full h-full rounded-2xl ${isDark ? 'bg-[#0182E6]/10' : 'bg-[#0182E6]/5'}`} />
                         </div>
                     </motion.div>
 
@@ -89,9 +89,9 @@ const AboutMe = () => {
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            className="flex items-center gap-3 text-[#003ECB] text-[10px] uppercase tracking-[0.4em]"
+                            className="flex items-center gap-3 text-[#0182E6] text-[11px] font-semibold uppercase tracking-[0.25em]"
                         >
-                            <span className="w-10 h-[1px] bg-[#003ECB]" />
+                            <span className="w-8 h-px bg-[#F78F18]" />
                             {language === 'bn' ? 'আমার সম্পর্কে' : 'About Me'}
                         </motion.div>
 
@@ -119,7 +119,7 @@ const AboutMe = () => {
                                     transition={{ delay: index * 0.1 }}
                                     className="flex items-center gap-3"
                                 >
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? 'bg-white/5 text-[#003ECB]' : 'bg-[#003ECB]/5 text-[#003ECB]'}`}>
+                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? 'bg-white/5 text-[#0182E6]' : 'bg-[#0182E6]/5 text-[#0182E6]'}`}>
                                         {item.icon}
                                     </div>
                                     <div>
@@ -135,7 +135,7 @@ const AboutMe = () => {
                             <Link href="/about">
                                 <motion.button
                                     whileHover={{ x: 5 }}
-                                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#003ECB] text-white text-sm font-medium rounded-lg hover:bg-[#002da3] transition-colors"
+                                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#0182E6] text-white text-sm font-medium rounded-lg hover:bg-[#0065c5] transition-colors"
                                 >
                                     {language === 'bn' ? 'আরো জানুন' : 'Learn More'}
                                     <LuArrowRight size={16} />

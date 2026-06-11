@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Preloader = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -53,46 +54,39 @@ const Preloader = () => {
                     exit="exit"
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
                 >
-                    {/* Minimalist Background Pattern */}
-                    <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
-                        style={{ backgroundImage: 'radial-gradient(#003ECB 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }}
+                    {/* Subtle dot pattern */}
+                    <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                        style={{ backgroundImage: 'radial-gradient(#0182E6 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }}
                     />
 
                     <div className="relative flex flex-col items-center">
 
-                        {/* Status Label */}
+                        {/* Logo */}
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="absolute -top-12 text-[10px] tracking-[0.5em] text-[#003ECB] font-bold uppercase"
+                            variants={textVariants}
+                            initial="initial"
+                            animate="animate"
+                            className="mb-8"
                         >
-                            {percent < 100 ? "Innovating Future" : "Welcome"}
+                            <Image
+                                src="/images/creation logo-01.png"
+                                alt="Creative Solve CS"
+                                width={220}
+                                height={63}
+                                className="object-contain"
+                                priority
+                            />
                         </motion.div>
 
-                        {/* Centered Large Branding - Royal Blue & Gold */}
-                        <div className="overflow-hidden flex items-center mb-6">
-                            <motion.h1
-                                variants={textVariants}
-                                initial="initial"
-                                animate="animate"
-                                className="text-4xl md:text-6xl font-bold tracking-tight flex items-center gap-3"
-                            >
-                                <span className="text-[#003ECB]">ABU</span>
-                                <span className="text-[#D4AF37]">SAYEED</span>
-                            </motion.h1>
-                        </div>
-
-                        {/* High-End Progress Section */}
-                        <div className="flex flex-col items-center space-y-4">
-                            {/* Value Display */}
-                            <div className="text-3xl md:text-4xl font-light font-sans text-slate-300 tabular-nums">
+                        {/* Progress Section */}
+                        <div className="flex flex-col items-center space-y-3">
+                            <div className="text-2xl font-light text-slate-300 tabular-nums">
                                 {percent.toString().padStart(3, '0')}
                             </div>
-
-                            {/* Ultra Thin Progress Bar */}
                             <div className="w-48 md:w-64 h-[2px] bg-slate-100 relative overflow-hidden rounded-full">
                                 <motion.div
-                                    className="absolute top-0 left-0 h-full bg-[#003ECB]"
+                                    className="absolute top-0 left-0 h-full"
+                                    style={{ background: 'linear-gradient(to right, #F78F18, #0182E6)' }}
                                     initial={{ width: "0%" }}
                                     animate={{ width: `${percent}%` }}
                                     transition={{ type: "spring", bounce: 0 }}
@@ -100,14 +94,14 @@ const Preloader = () => {
                             </div>
                         </div>
 
-                        {/* Footer Subtext */}
+                        {/* Footer */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.4 }}
                             transition={{ delay: 0.5 }}
-                            className="mt-12 text-[8px] tracking-[0.3em] text-[#003ECB] font-bold uppercase"
+                            className="mt-10 text-[9px] tracking-[0.35em] text-slate-400 font-semibold uppercase"
                         >
-                            Designer • Developer • Mentor
+                            Designer · Developer · Mentor
                         </motion.div>
                     </div>
                 </motion.div>

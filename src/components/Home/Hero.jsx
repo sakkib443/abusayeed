@@ -1,337 +1,175 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { LuArrowRight, LuPlay, LuStar } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { LuArrowRight, LuX } from "react-icons/lu";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: "easeOut" },
+  }),
+};
 
 const Hero = () => {
-    const { language } = useLanguage();
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
-    const [showRibbon, setShowRibbon] = useState(true);
-    const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+  const { language } = useLanguage();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const bn = language === "bn" ? "hind-siliguri" : "";
 
-    // Image assets
-    const assets = {
-        eye: "/hero_eye.png",
-        bag: "/hero_bag.png",
-        headphones: "/hero_headphones.png",
-        portrait: "/hero_portrait.png"
-    };
+  return (
+    <section className={`relative overflow-hidden ${isDark ? "bg-[#050505] text-white" : "bg-white text-slate-900"}`}>
+      {/* two-tone accent glows */}
+      <div
+        className={`absolute -top-40 right-0 w-[460px] h-[460px] rounded-full blur-[150px] pointer-events-none ${
+          isDark ? "bg-[#0182E6]/15" : "bg-[#0182E6]/[0.07]"
+        }`}
+      />
+      <div className="absolute top-16 right-[180px] w-[260px] h-[260px] rounded-full blur-[120px] pointer-events-none bg-[#F78F18]/10" />
 
-    // Animation Variants for Floating (Freepik Style)
-    const floatingAnimation = (delay = 0, duration = 4) => ({
-        animate: {
-            y: [0, -15, 0],
-            transition: {
-                duration: duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: delay
-            }
-        }
-    });
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 md:py-24">
+          {/* Left — copy */}
+          <div className="max-w-xl">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              custom={0}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[12px] font-semibold mb-7 ${
+                isDark ? "border-white/10 bg-white/5 text-gray-300" : "border-gray-200 bg-gray-50 text-slate-600"
+              } ${bn}`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F78F18]" />
+              {language === "bn" ? "ডিজাইন শেখা ও মার্কেটপ্লেস — একসাথে" : "Learn design & shop premium assets"}
+            </motion.div>
 
-    return (
-        <section className={`relative min-h-screen flex flex-col items-center pt-6 md:pt-10 pb-40 px-4 overflow-hidden transition-colors duration-500 ${isDark ? "bg-[#020202] text-white" : "bg-[#f8fafc] text-slate-900"
-            }`}>
+            <motion.h1
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              custom={1}
+              className={`font-heading font-bold tracking-tight leading-[1.1] text-[36px] md:text-[52px] mb-6 ${bn}`}
+            >
+              {language === "bn" ? (
+                <>
+                  সৃজনশীলতা শিখুন,
+                  <br />
+                  <span className="bg-gradient-to-r from-[#F78F18] to-[#0182E6] bg-clip-text text-transparent">পেশাদার</span> হয়ে উঠুন
+                </>
+              ) : (
+                <>
+                  Master creative design,
+                  <br />
+                  the <span className="bg-gradient-to-r from-[#F78F18] to-[#0182E6] bg-clip-text text-transparent">professional</span> way
+                </>
+              )}
+            </motion.h1>
 
-            {/* Background Decorative elements */}
-            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                {/* Animated Gradient Orbs */}
-                <motion.div
-                    animate={{
-                        x: [0, 50, 0],
-                        y: [0, 30, 0],
-                        scale: [1, 1.1, 1]
-                    }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                    className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-[0.08] ${isDark ? "bg-[#003ECB]" : "bg-[#003ECB]/40"}`}
-                />
-                <motion.div
-                    animate={{
-                        x: [0, -40, 0],
-                        y: [0, -20, 0],
-                        scale: [1, 1.15, 1]
-                    }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                    className={`absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-[0.05] ${isDark ? "bg-[#D4AF37]" : "bg-[#D4AF37]/30"}`}
-                />
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              custom={2}
+              className={`text-[15px] md:text-[17px] leading-relaxed mb-9 ${isDark ? "text-gray-400" : "text-slate-500"} ${bn}`}
+            >
+              {language === "bn"
+                ? "প্রিমিয়াম ডিজাইন রিসোর্স, ইন্ডাস্ট্রি-স্ট্যান্ডার্ড কোর্স আর অভিজ্ঞ মেন্টরশিপ — সব এক জায়গায়।"
+                : "Premium design resources, industry-grade courses, and expert mentorship — all in one place."}
+            </motion.p>
 
-                {/* Floating Shapes */}
-                <motion.div
-                    animate={{
-                        y: [0, -30, 0],
-                        rotate: [0, 180, 360]
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className={`absolute top-[20%] right-[15%] w-16 h-16 border rounded-full ${isDark ? "border-white/5" : "border-slate-200"}`}
-                />
-                <motion.div
-                    animate={{
-                        y: [0, 20, 0],
-                        x: [0, 10, 0]
-                    }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className={`absolute top-[30%] left-[10%] w-3 h-3 rounded-full ${isDark ? "bg-[#003ECB]/30" : "bg-[#003ECB]/20"}`}
-                />
-                <motion.div
-                    animate={{
-                        y: [0, -15, 0],
-                        x: [0, -8, 0]
-                    }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className={`absolute top-[60%] right-[20%] w-2 h-2 rounded-full ${isDark ? "bg-[#D4AF37]/40" : "bg-[#D4AF37]/30"}`}
-                />
-                <motion.div
-                    animate={{
-                        y: [0, 25, 0],
-                        rotate: [0, 90, 0]
-                    }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                    className={`absolute bottom-[30%] left-[20%] w-8 h-8 border rounded-md rotate-45 ${isDark ? "border-white/5" : "border-slate-200"}`}
-                />
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              custom={3}
+              className="flex flex-wrap items-center gap-3 mb-10"
+            >
+              <Link
+                href="/courses"
+                className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-[#0182E6] text-white text-[15px] font-semibold hover:bg-[#0065c5] transition-colors shadow-lg shadow-[#0182E6]/20 ${bn}`}
+              >
+                {language === "bn" ? "শুরু করুন" : "Get started"}
+                <LuArrowRight size={18} />
+              </Link>
+              <Link
+                href="/design-template"
+                className={`inline-flex items-center gap-2 px-6 py-3.5 rounded-lg text-[15px] font-semibold border transition-colors ${
+                  isDark ? "border-white/15 text-white hover:bg-white/5" : "border-gray-200 text-slate-700 hover:bg-gray-50"
+                } ${bn}`}
+              >
+                <LuPlay size={15} className="text-[#F78F18]" />
+                {language === "bn" ? "টেমপ্লেট দেখুন" : "Browse templates"}
+              </Link>
+            </motion.div>
 
-                {/* Grid Pattern */}
-                <div className={`absolute inset-0 bg-[linear-gradient(to_right,transparent_49px,rgba(0,62,203,0.03)_50px),linear-gradient(to_bottom,transparent_49px,rgba(0,62,203,0.03)_50px)] bg-[size:50px_50px] ${isDark ? "opacity-30" : "opacity-50"}`} />
-
-                {/* ABU SAYEED Watermark Text - Continuous Marquee */}
-                <div className="absolute right-0 md:right-4 bottom-0 top-0 flex items-center pointer-events-none z-0 overflow-hidden h-full">
-                    <motion.div
-                        animate={{ y: ["0%", "-50%"] }}
-                        transition={{
-                            duration: 60,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                        className={`text-[100px] md:text-[160px] lg:text-[220px] font-heading font-black tracking-tighter whitespace-nowrap ${isDark ? "text-white/[0.04]" : "text-slate-900/[0.05]"}`}
-                        style={{
-                            writingMode: 'vertical-rl',
-                            textOrientation: 'mixed',
-                            transform: 'rotate(180deg)'
-                        }}
-                    >
-                        ABU SAYEED • ABU SAYEED • ABU SAYEED
-                    </motion.div>
+            {/* trust row */}
+            <motion.div variants={fadeUp} initial="hidden" animate="show" custom={4} className="flex items-center gap-6">
+              <div>
+                <div className="flex items-center gap-0.5 text-[#F78F18]">
+                  {[...Array(5)].map((_, i) => (
+                    <LuStar key={i} size={15} className="fill-current" />
+                  ))}
                 </div>
+                <p className={`text-[13px] mt-1 ${isDark ? "text-gray-500" : "text-slate-500"} ${bn}`}>
+                  {language === "bn" ? "৪.৯/৫ — ১২,০০০+ রিভিউ" : "4.9/5 from 12,000+ reviews"}
+                </p>
+              </div>
+              <div className={`h-10 w-px ${isDark ? "bg-white/10" : "bg-gray-200"}`} />
+              <div>
+                <p className="font-heading font-bold text-xl">700K+</p>
+                <p className={`text-[13px] ${isDark ? "text-gray-500" : "text-slate-500"} ${bn}`}>
+                  {language === "bn" ? "সন্তুষ্ট শিক্ষার্থী" : "Happy learners"}
+                </p>
+              </div>
+            </motion.div>
+          </div>
 
-                {/* Background Grain/Noise Effect */}
-                <div className={`absolute inset-0 opacity-[0.03] z-0 ${isDark ? "bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" : "bg-black/[0.02]"}`} />
-            </div>
+          {/* Right — single clean visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative"
+          >
+            <div
+              className={`relative rounded-2xl overflow-hidden border ${
+                isDark ? "border-white/10 shadow-2xl shadow-black/40" : "border-gray-100 shadow-2xl shadow-slate-200/70"
+              }`}
+            >
+              <img
+                src="/images/office-showcase.png"
+                alt="Professional creative workspace"
+                className="w-full h-full object-cover aspect-[4/3]"
+              />
 
-            <div className="container mx-auto max-w-6xl relative z-10 flex flex-col items-center text-center">
-
-                {/* 1. Pill Badge */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className={`mb-8 flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] md:text-xs font-bold tracking-tight ${isDark ? "bg-white/10 border-white/10" : "bg-white border-black/5 shadow-sm"
-                        }`}
-                >
-                    <span className="px-1.5 py-0.5 rounded-md bg-[#003ECB] text-white text-[8px] uppercase">New</span>
-                    <span className={isDark ? "text-white" : "text-slate-600"}>
-                        {language === 'bn' ? 'স্পেস পরিচিতি' : 'Introducing Spaces'}
-                    </span>
-                    <LuArrowRight className="ml-1 opacity-50" size={12} />
-                </motion.div>
-
-                {/* 2. Main Heading */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1 }}
-                    className={`text-[40px] md:text-[50px] font-heading font-bold tracking-tight leading-[1.1] mb-5 max-w-4xl ${isDark ? "text-white" : "text-slate-900"
-                        } ${bengaliClass}`}
-                >
-                    {language === 'bn'
-                        ? 'সৃজনশীল কাজ, নতুনভাবে কল্পনায়'
-                        : 'Creative Design & Marketplace'}
-                </motion.h1>
-
-                {/* 3. Description */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className={`text-sm md:text-base max-w-2xl mb-6 leading-relaxed font-body ${isDark ? "text-gray-400" : "text-slate-500"
-                        } ${bengaliClass}`}
-                >
-                    {language === 'bn'
-                        ? 'এক স্থানে সেরা ডিজাইন রিসোর্স, প্রিমিয়াম টুলস এবং ২০ বছরের অভিজ্ঞ প্রশিক্ষকের মেন্টরশিপ—বিশ্বাস করেন লক্ষাধিক সৃজনশীল মানুষ।'
-                        : 'One suite: top design resources, professional training tools, and expert mentorship—trusted by 700,000+ creatives.'}
-                </motion.p>
-
-                {/* 4. CTA Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="mb-8"
-                >
-                    <Link
-                        href="/courses"
-                        className="inline-flex items-center gap-3 px-8 py-3.5 bg-[#003ECB] text-white font-bold rounded-full hover:bg-[#002da3] hover:shadow-2xl hover:shadow-[#003ECB]/30 hover:-translate-y-0.5 transition-all"
-                    >
-                        {language === 'bn' ? 'ফ্রি শুরু করুন' : 'Get started for free'}
-                        <LuArrowRight className="text-lg" />
-                    </Link>
-                </motion.div>
-
-                {/* 5. Modern Image Collage (Animated) */}
-                <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center -mt-4">
-
-                    {/* Central Image (The Eye) - Gentle Slow Float */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{
-                            opacity: 1,
-                            scale: 1,
-                            y: [0, -10, 0]
-                        }}
-                        transition={{
-                            y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                            opacity: { duration: 1.2, delay: 0.4 },
-                            scale: { duration: 1.2, delay: 0.4 }
-                        }}
-                        className={`absolute w-[80%] md:w-[680px] aspect-video z-20 rounded-[2rem] overflow-hidden ${isDark ? "shadow-[0_40px_100px_rgba(0,0,0,0.8)]" : "shadow-[0_40px_80px_rgba(0,0,0,0.15)]"
-                            }`}
-                    >
-                        <video
-                            src="/images/ai video.webm"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                        />
-                    </motion.div>
-
-                    {/* Top-Left Image (Bag) - Floating Up/Down */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -60, y: -40 }}
-                        animate={{
-                            opacity: 1,
-                            x: 0,
-                            y: [0, -20, 0]
-                        }}
-                        transition={{
-                            y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                            opacity: { duration: 1.2, delay: 0.6 },
-                            x: { duration: 1.2, delay: 0.6 }
-                        }}
-                        className={`absolute left-[0%] md:left-[2%] top-0 md:top-[-40px] w-[30%] md:w-[320px] aspect-[4/3] z-10 rounded-[1.5rem] overflow-hidden ${isDark ? "shadow-2xl opacity-80" : "shadow-xl"
-                            }`}
-                    >
-                        <img
-                            src={assets.bag}
-                            alt="Design Object"
-                            className="w-full h-full object-cover"
-                        />
-                    </motion.div>
-
-                    {/* Bottom-Left Image (Headphones) - Faster Floating */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -40, y: 60 }}
-                        animate={{
-                            opacity: 1,
-                            x: 0,
-                            y: [0, -15, 0]
-                        }}
-                        transition={{
-                            y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 },
-                            opacity: { duration: 1.2, delay: 0.8 },
-                            x: { duration: 1.2, delay: 0.8 }
-                        }}
-                        className={`absolute left-[4%] md:left-[8%] bottom-[-20px] md:bottom-[40px] w-[20%] md:w-[180px] aspect-square z-30 rounded-[1.5rem] overflow-hidden ${isDark ? "shadow-2xl" : "shadow-xl"
-                            }`}
-                    >
-                        <img
-                            src={assets.headphones}
-                            alt="Creative Lifestyle"
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Audio wavelength dummy overlay */}
-                        <div className="absolute bottom-4 left-4 right-4 h-4 flex gap-1 items-end opacity-60">
-                            {[40, 70, 45, 90, 65, 30].map((h, i) => (
-                                <div key={i} className={`flex-1 rounded-full ${isDark ? "bg-white" : "bg-slate-700"}`} style={{ height: `${h}%` }} />
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Right-Side Image (Portrait) - Staggered Float */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 60 }}
-                        animate={{
-                            opacity: 1,
-                            x: 0,
-                            y: [0, -25, 0]
-                        }}
-                        transition={{
-                            y: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 },
-                            opacity: { duration: 1.2, delay: 0.7 },
-                            x: { duration: 1.2, delay: 0.7 }
-                        }}
-                        className={`absolute right-[-10%] md:right-[-5%] top-[-20px] md:top-[20px] w-[25%] md:w-[280px] aspect-[3/4] z-10 rounded-[2rem] overflow-hidden ${isDark ? "shadow-2xl" : "shadow-xl"
-                            }`}
-                    >
-                        <img
-                            src={assets.portrait}
-                            alt="Professional Retouching"
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Divider for split effect */}
-                        <div className={`absolute top-0 bottom-0 left-1/2 w-[1px] z-10 ${isDark ? "bg-white/30" : "bg-black/10"}`} />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border scale-75 ${isDark ? "bg-white/20 border-white/20" : "bg-white/80 border-black/10 shadow-lg"
-                                }`}>
-                                <LuArrowRight className={`rotate-180 ${isDark ? "text-white" : "text-slate-800"}`} size={14} />
-                            </div>
-                        </div>
-                    </motion.div>
-
+              {/* one tasteful stat card, kept inside the frame */}
+              <div
+                className={`absolute bottom-4 left-4 flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md ${
+                  isDark ? "bg-[#0a0a0a]/70 border-white/10" : "bg-white/90 border-gray-100 shadow-lg"
+                }`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-[#F78F18]/10 flex items-center justify-center">
+                  <LuStar className="text-[#F78F18] fill-current" size={20} />
                 </div>
-
+                <div>
+                  <p className={`font-heading font-bold text-sm ${isDark ? "text-white" : "text-slate-900"}`}>2,500+</p>
+                  <p className={`text-[12px] ${isDark ? "text-gray-400" : "text-slate-500"} ${bn}`}>
+                    {language === "bn" ? "প্রিমিয়াম টেমপ্লেট" : "Premium templates"}
+                  </p>
+                </div>
+              </div>
             </div>
-
-            {/* Bottom Language Banner (Mimicking Freepik) */}
-            <AnimatePresence>
-                {showRibbon && (
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: 100, opacity: 0 }}
-                        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-xl"
-                    >
-                        <div className={`border rounded-2xl py-3 px-5 flex items-center justify-between shadow-2xl backdrop-blur-xl ${isDark ? "bg-[#1a1a1a] border-white/10" : "bg-white border-black/5"
-                            }`}>
-                            <p className={`text-[11px] md:text-xs ${isDark ? "text-gray-300" : "text-slate-600"} ${bengaliClass}`}>
-                                {language === 'bn'
-                                    ? 'আবু সাঈদ আপনার ভাষাতেও কথা বলে'
-                                    : 'Abu Sayeed speaks your language too'}
-                            </p>
-                            <div className="flex items-center gap-4">
-                                <button className={`px-3 py-1 text-[10px] md:text-xs font-bold rounded-lg transition-colors ${isDark ? "bg-white text-black hover:bg-gray-200" : "bg-[#003ECB] text-white hover:bg-[#002da3]"
-                                    }`}>
-                                    {language === 'bn' ? 'সক্রিয় করুন' : 'Activate now'}
-                                </button>
-                                <button
-                                    onClick={() => setShowRibbon(false)}
-                                    className="text-gray-500 hover:text-red-500 transition-colors"
-                                >
-                                    <LuX size={16} />
-                                </button>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-        </section>
-    );
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Hero;
