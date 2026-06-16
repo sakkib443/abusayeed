@@ -9,6 +9,7 @@ import { fetchDesignTemplates } from "@/redux/designTemplateSlice";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import ProductCard from "@/components/sheard/ProductCard";
+import DesignPreviewModal from "@/components/sheard/DesignPreviewModal";
 
 const PopularDesign = () => {
   const dispatch = useDispatch();
@@ -17,12 +18,17 @@ const PopularDesign = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const bn = language === "bn" ? "hind-siliguri" : "";
+  const [activeTemplate, setActiveTemplate] = React.useState(null);
 
   useEffect(() => {
     dispatch(fetchDesignTemplates({ limit: 6 }));
   }, [dispatch]);
 
   return (
+    <>
+    {activeTemplate && (
+      <DesignPreviewModal template={activeTemplate} onClose={() => setActiveTemplate(null)} />
+    )}
     <section className={`py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8fafc]"}`}>
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
@@ -52,11 +58,12 @@ const PopularDesign = () => {
                 <div key={i} className={`animate-pulse rounded-2xl aspect-[16/12] ${isDark ? "bg-white/5" : "bg-slate-200/60"}`} />
               ))
             : templates.slice(0, 6).map((item) => (
-                <ProductCard key={item._id} product={item} type="design-template" />
+                <ProductCard key={item._id} product={item} type="design-template" onCardClick={() => setActiveTemplate(item)} />
               ))}
         </div>
       </div>
     </section>
+    </>
   );
 };
 

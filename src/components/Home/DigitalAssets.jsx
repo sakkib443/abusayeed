@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 import { fetchDesignTemplates, fetchDesignCategories } from "@/redux/designTemplateSlice";
 import ProductCard from "@/components/sheard/ProductCard";
+import DesignPreviewModal from "@/components/sheard/DesignPreviewModal";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -18,6 +19,7 @@ const DigitalAssets = () => {
   const isDark = theme === "dark";
   const bn = language === "bn" ? "hind-siliguri" : "";
   const [activeCategory, setActiveCategory] = useState("all");
+  const [activeTemplate, setActiveTemplate] = useState(null);
 
   useEffect(() => {
     dispatch(fetchDesignCategories());
@@ -41,6 +43,7 @@ const DigitalAssets = () => {
     }`;
 
   return (
+    <>
     <section className={`py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8fafc]"}`}>
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
@@ -83,7 +86,7 @@ const DigitalAssets = () => {
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <ProductCard product={template} type="design-template" />
+                    <ProductCard product={template} type="design-template" onCardClick={() => setActiveTemplate(template)} />
                   </motion.div>
                 ))}
           </AnimatePresence>
@@ -106,6 +109,10 @@ const DigitalAssets = () => {
         </div>
       </div>
     </section>
+    {activeTemplate && (
+      <DesignPreviewModal template={activeTemplate} onClose={() => setActiveTemplate(null)} />
+    )}
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ import {
     LuStar
 } from "react-icons/lu";
 import ProductCard from "@/components/sheard/ProductCard";
+import DesignPreviewModal from "@/components/sheard/DesignPreviewModal";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -35,7 +36,8 @@ const DesignTemplateContent = () => {
     const [view, setView] = useState("grid");
     const [templates, setTemplates] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [openFilter, setOpenFilter] = useState(null); // To track which dropdown is open
+    const [openFilter, setOpenFilter] = useState(null);
+    const [activeTemplate, setActiveTemplate] = useState(null);
 
 
     // Fetch design templates from API with filter params
@@ -179,6 +181,13 @@ const DesignTemplateContent = () => {
     };
 
     return (
+        <>
+        {activeTemplate && (
+            <DesignPreviewModal
+                template={activeTemplate}
+                onClose={() => setActiveTemplate(null)}
+            />
+        )}
         <div className="min-h-screen bg-white dark:bg-[#020202]">
             {/* Premium Heading Section */}
             <header className="pt-6 pb-8 bg-white dark:bg-[#020202]">
@@ -255,18 +264,6 @@ const DesignTemplateContent = () => {
                                     { id: '3', label: "3.0 & up" }
                                 ]}
                             />
-                            <FilterDropdown
-                                label={language === 'bn' ? "প্রাইস" : "Price"}
-                                value={selectedPrice}
-                                stateKey="price"
-                                options={[
-                                    { id: 'all', label: language === 'bn' ? "সব প্রাইস" : "All Prices" },
-                                    { id: 'free', label: language === 'bn' ? "ফ্রি" : "Free" },
-                                    { id: '0-500', label: "0 - ৳500" },
-                                    { id: '500-1000', label: "৳500 - ৳1000" },
-                                    { id: '1000+', label: "৳1000+" }
-                                ]}
-                            />
                         </div>
 
                         {/* Right Side: Sort & View */}
@@ -279,8 +276,6 @@ const DesignTemplateContent = () => {
                                     className="bg-transparent text-[12px] font-medium text-slate-600 dark:text-gray-300 outline-none cursor-pointer hover:text-[#003ECB] transition-colors"
                                 >
                                     <option value="newest" className="dark:bg-[#111]">Newest</option>
-                                    <option value="price-low" className="dark:bg-[#111]">Price: Low to High</option>
-                                    <option value="price-high" className="dark:bg-[#111]">Price: High to Low</option>
                                     <option value="rating" className="dark:bg-[#111]">Best Rating</option>
                                 </select>
                             </div>
@@ -330,6 +325,7 @@ const DesignTemplateContent = () => {
                                     key={template._id}
                                     product={template}
                                     type="design-template"
+                                    onCardClick={() => setActiveTemplate(template)}
                                 />
                             ))}
                         </div>
@@ -337,6 +333,7 @@ const DesignTemplateContent = () => {
                 </div>
             </main>
         </div>
+        </>
     );
 };
 

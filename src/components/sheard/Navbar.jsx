@@ -62,7 +62,7 @@ const Navbar = () => {
     { href: "/", label: t("navbar.home") },
     { href: "/courses", label: t("navbar.courses") },
     { href: "/design-template", label: language === "bn" ? "ডিজাইন" : "Design" },
-    { href: "/pricing", label: language === "bn" ? "প্রাইসিং" : "Pricing" },
+    { href: "/portfolio", label: language === "bn" ? "পোর্টফোলিও" : "Portfolio" },
     { href: "/about", label: t("navbar.about") },
     { href: "/contact", label: t("navbar.contact") },
   ];
