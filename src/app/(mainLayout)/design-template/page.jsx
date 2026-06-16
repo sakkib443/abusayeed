@@ -305,7 +305,7 @@ const DesignTemplateContent = () => {
             <main className="py-12">
                 <div className="container mx-auto px-6 max-w-[1600px]">
                     {loading ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
                             {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
                                 <div key={i} className="flex flex-col gap-3">
                                     <div className="animate-pulse bg-slate-50 dark:bg-white/5 rounded-md aspect-[16/10]"></div>
@@ -319,7 +319,7 @@ const DesignTemplateContent = () => {
                             <h3 className="text-lg font-normal text-slate-800 dark:text-white mb-2">No templates found</h3>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
                             {filteredTemplates.map((template) => (
                                 <ProductCard
                                     key={template._id}

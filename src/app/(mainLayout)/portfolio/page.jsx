@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { LuSearch, LuExternalLink, LuEye } from "react-icons/lu";
+import { LuSearch } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { API_URL } from "@/config/api";
@@ -179,49 +179,21 @@ const PortfolioPage = () => {
                                             onClick={() => setActiveTemplate(item)}
                                             className="block w-full text-left"
                                         >
-                                            <div
-                                                className={`relative aspect-[4/3] rounded-2xl overflow-hidden border mb-4 ${
-                                                    isDark
-                                                        ? "border-white/5 bg-[#111]"
-                                                        : "border-slate-100 bg-slate-50"
-                                                }`}
-                                            >
+                                            {/* Image */}
+                                            <div className="overflow-hidden mb-3">
                                                 <img
                                                     src={img}
                                                     alt={title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                                                 />
-                                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                                                    <span className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-slate-900 text-[13px] font-semibold rounded-full shadow-lg">
-                                                        <LuEye size={14} />
-                                                        {language === "bn" ? "দেখুন" : "View"}
-                                                    </span>
-                                                </div>
-
-                                                {item.previewUrl && (
-                                                    <a
-                                                        href={item.previewUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        onClick={(e) => e.stopPropagation()}
-                                                        className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-slate-700 hover:text-[#003ECB] transition-colors shadow-md opacity-0 group-hover:opacity-100"
-                                                        title="Live Preview"
-                                                    >
-                                                        <LuExternalLink size={15} />
-                                                    </a>
-                                                )}
                                             </div>
 
-                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F78F18] mb-1.5">
-                                                {catName}
-                                            </p>
-                                            <h3
-                                                className={`text-[15px] font-semibold leading-snug line-clamp-1 group-hover:text-[#003ECB] transition-colors ${
-                                                    isDark ? "text-white" : "text-slate-900"
-                                                } ${bn}`}
-                                            >
+                                            {/* Title */}
+                                            <p className={`text-[13px] font-medium leading-snug line-clamp-1 transition-colors group-hover:text-[#003ECB] ${
+                                                isDark ? "text-slate-300" : "text-slate-700"
+                                            } ${bn}`}>
                                                 {title}
-                                            </h3>
+                                            </p>
                                         </button>
                                     </motion.div>
                                 );
