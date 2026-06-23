@@ -8,13 +8,11 @@ import Hero from "@/components/Home/Hero";
 
 import PopularDesign from "@/components/Home/PopularDesign";
 
-import DigitalAssets from "@/components/Home/DigitalAssets";
 import AboutMe from "@/components/Home/AboutMe";
 import BlogSection from "@/components/Home/BlogSection";
 import Testimonials from "@/components/Home/Testimonials";
 
 import CategoryShowcase from "@/components/Home/CategoryShowcase";
-import CounterSection from "@/components/Home/CounterSection";
 import { fetchCoursesData } from "@/redux/CourseSlice";
 import { fetchDesignTemplates } from "@/redux/designTemplateSlice";
 import Lenis from 'lenis';
@@ -68,8 +66,6 @@ const HomePage = () => {
           <Hero />
         </section>
 
-        <CounterSection />
-
         <CategoryShowcase />
 
 
@@ -81,7 +77,6 @@ const HomePage = () => {
         {/* Other Sections */}
         <section className="relative z-10 bg-white dark:bg-[#020202]">
           <PopularDesign />
-          <DigitalAssets />
           <AboutMe />
           <BlogSection />
           <Testimonials />

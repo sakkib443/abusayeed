@@ -1,56 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LuQuote, LuStar } from "react-icons/lu";
+import Link from "next/link";
+import { LuStar, LuQuote, LuChevronLeft, LuChevronRight, LuPencil } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import AmbientBg from "@/components/Home/AmbientBg";
 
-const testimonials = [
+const REVIEWS = [
   {
-    id: 1,
-    name: "Rakib Hassan",
-    designation: "UI/UX Designer, Dhaka",
-    color: "#0182E6",
-    review:
-      "Abu Sayeed's design courses have completely transformed my approach to UX/UI. The practical examples and industry insights are invaluable. I now approach every project with confidence and a professional mindset.",
-    rating: 5,
+    id: 1, name: "Ariful Islam", role: "Graphic Designer", category: "Graphic Design", color: "#003ECB", rating: 5,
+    review: "Graphic Design কোর্সটি অসাধারণ! Logo আর Branding-এর প্রতিটা detail হাতে-কলমে শিখেছি। Instructor-এর teaching style অনেক clear এবং বুঝতে সহজ।",
   },
   {
-    id: 2,
-    name: "Farhan Ahmed",
-    designation: "Freelancer, Chittagong",
-    color: "#F78F18",
-    review:
-      "The quality of instruction is exceptional. Every lesson is crafted with care, making complex design concepts easy to understand. The depth of knowledge shared really shows in every module.",
-    rating: 5,
+    id: 2, name: "Roksana Begum", role: "Content Creator & Marketer", category: "Social Media", color: "#14B8A6", rating: 5,
+    review: "Social Media Design কোর্স আমার চিন্তার জগৎ বদলে দিয়েছে। কীভাবে কাজ করতে হয় শিখেছি, এখন নিজেরই একটা ছোট agency আছে। ধন্যবাদ Creative Solve CS!",
   },
   {
-    id: 3,
-    name: "Tanvir Islam",
-    designation: "Graphic Designer, Sylhet",
-    color: "#0182E6",
-    review:
-      "Very responsive support and excellent course content. The templates and resources provided have saved me countless hours. I highly recommend these courses to anyone serious about design.",
-    rating: 5,
+    id: 3, name: "Sumaiya Akter", role: "UI/UX Designer", category: "UI/UX Design", color: "#8B5CF6", rating: 5,
+    review: "UI/UX কোর্সটি step-by-step শেখানো হয়েছে — Figma থেকে prototype পর্যন্ত সবকিছু। Instructor-রা অত্যন্ত experienced এবং সবসময় doubt clear করে দিতেন।",
   },
   {
-    id: 4,
-    name: "Imran Khan",
-    designation: "Creative Director, Rajshahi",
-    color: "#F78F18",
-    review:
-      "The courses are beautifully crafted. Every lesson is easy to understand and practical. I've learned more in a few months here than in years of self-study. Absolutely worth the investment.",
-    rating: 5,
+    id: 4, name: "Tanvir Hasan", role: "Video Editor", category: "Video & Motion", color: "#F78F18", rating: 5,
+    review: "Video Editing ও Motion Graphics শিখে এখন আমি international client-দের সাথে কাজ করছি। practical project গুলো অনেক বেশি helpful ছিল।",
   },
   {
-    id: 5,
-    name: "Sabbir Rahman",
-    designation: "Motion Designer, Khulna",
-    color: "#0182E6",
-    review:
-      "Best platform for design learning. All courses are updated with the latest industry trends. The community and support are outstanding. A must-have for any aspiring designer.",
-    rating: 5,
+    id: 5, name: "Nusrat Jahan", role: "Brand Designer", category: "Brand Identity", color: "#EC4899", rating: 4,
+    review: "Brand Identity কোর্সে logo, color আর typography — সব শিখেছি। course content এবং support দুটোই top class। নতুনদের জন্য perfect।",
+  },
+  {
+    id: 6, name: "Mahdi Rahman", role: "Freelancer", category: "Print Design", color: "#10B981", rating: 5,
+    review: "Print Design কোর্স করে এখন Fiverr-এ regular order পাচ্ছি। ধন্যবাদ স্যার — দারুণ একটা learning journey ছিল, একদম beginner থেকে professional।",
   },
 ];
 
@@ -59,104 +39,169 @@ const Testimonials = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const bn = language === "bn" ? "hind-siliguri" : "";
-  const [activeIndex, setActiveIndex] = useState(0);
 
+  const n = REVIEWS.length;
+  const loop = [...REVIEWS, ...REVIEWS]; // duplicate for a seamless one-by-one loop
+
+  const [perView, setPerView] = useState(3);
+  const [index, setIndex] = useState(0);
+  const [animate, setAnimate] = useState(true);
+  const [paused, setPaused] = useState(false);
+
+  // responsive cards-per-view
   useEffect(() => {
-    const timer = setInterval(() => setActiveIndex((prev) => (prev + 1) % testimonials.length), 6000);
-    return () => clearInterval(timer);
+    const calc = () => setPerView(window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
   }, []);
 
-  const active = testimonials[activeIndex];
+  // auto-advance one card every 2s (pauses on hover)
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIndex((i) => i + 1), 2000);
+    return () => clearInterval(t);
+  }, [paused]);
 
-  return (
-    <section className={`py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-white"}`}>
-      <div className="container mx-auto px-6 max-w-7xl">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="flex items-center justify-center gap-3 text-[#0182E6] text-[11px] font-semibold uppercase tracking-[0.25em] mb-4">
-            <span className="w-8 h-px bg-[#F78F18]" />
-            {language === "bn" ? "টেস্টিমোনিয়াল" : "Testimonials"}
-            <span className="w-8 h-px bg-[#F78F18]" />
+  // seamless loop: when we reach the cloned set, snap back without animation
+  useEffect(() => {
+    if (index >= n) {
+      const t = setTimeout(() => { setAnimate(false); setIndex(index - n); }, 650);
+      return () => clearTimeout(t);
+    }
+  }, [index, n]);
+
+  useEffect(() => {
+    if (!animate) {
+      const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimate(true)));
+      return () => cancelAnimationFrame(id);
+    }
+  }, [animate]);
+
+  const goNext = () => setIndex((i) => i + 1);
+  const goPrev = () => {
+    if (index <= 0) { setAnimate(false); setIndex(n - 1); }
+    else setIndex((i) => i - 1);
+  };
+  const goTo = (i) => { setAnimate(true); setIndex(i); };
+
+  const activeDot = ((index % n) + n) % n;
+
+  const Card = ({ t }) => (
+    <div className={`h-full rounded-2xl border overflow-hidden transition-colors ${isDark ? "bg-[#111] border-white/10" : "bg-white border-slate-100 shadow-[0_10px_30px_rgba(2,6,23,0.05)]"}`}>
+      <div className="h-1.5 w-full" style={{ background: t.color }} />
+      <div className="p-6 md:p-7 flex flex-col h-[calc(100%-6px)]">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <LuStar key={i} size={15} className={i < t.rating ? "text-[#F59E0B] fill-[#F59E0B]" : "text-slate-300 dark:text-white/15"} />
+            ))}
           </div>
-          <h2 className={`text-3xl md:text-[40px] font-heading font-bold tracking-tight leading-[1.15] ${isDark ? "text-white" : "text-slate-900"} ${bn}`}>
-            {language === "bn" ? "শিক্ষার্থীরা যা বলেন" : "What our learners say"}
-          </h2>
+          <LuQuote size={34} style={{ color: t.color }} className="opacity-15 shrink-0" />
         </div>
 
-        {/* Content */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 max-w-5xl mx-auto">
-          {/* Avatars */}
-          <div className="flex lg:flex-col items-center justify-center gap-3">
-            {testimonials.map((t, idx) => (
-              <button
-                key={t.id}
-                onClick={() => setActiveIndex(idx)}
-                aria-label={t.name}
-                className={`rounded-full flex items-center justify-center font-bold text-white flex-shrink-0 transition-all duration-300 ${
-                  idx === activeIndex
-                    ? `ring-2 ring-[#0182E6] ring-offset-2 ${isDark ? "ring-offset-[#0a0a0a]" : "ring-offset-white"}`
-                    : "opacity-50 hover:opacity-100"
-                }`}
-                style={{
-                  width: idx === activeIndex ? 60 : 48,
-                  height: idx === activeIndex ? 60 : 48,
-                  background: t.color,
-                  fontSize: idx === activeIndex ? 22 : 17,
-                }}
-              >
-                {t.name.charAt(0)}
-              </button>
+        <p className={`text-[14px] leading-relaxed flex-1 ${isDark ? "text-slate-300" : "text-slate-600"} ${bn}`}>
+          “{t.review}”
+        </p>
+
+        <div className={`flex items-center justify-between gap-3 mt-6 pt-5 border-t ${isDark ? "border-white/8" : "border-slate-100"}`}>
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-base shrink-0" style={{ background: t.color }}>
+              {t.name.charAt(0)}
+            </div>
+            <div className="min-w-0">
+              <h4 className={`font-bold text-[14px] truncate ${isDark ? "text-white" : "text-slate-900"}`}>{t.name}</h4>
+              <p className="text-[12px] text-slate-400 truncate">{t.role}</p>
+            </div>
+          </div>
+          <span className="px-3 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap shrink-0" style={{ background: `${t.color}1a`, color: t.color }}>
+            {t.category}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section className={`relative overflow-hidden py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8fafc]"}`}>
+      <AmbientBg />
+      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className={`inline-block px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] mb-5 bg-[#003ECB]/10 text-[#003ECB] ${bn}`}>
+            {language === "bn" ? "শিক্ষার্থীদের রিভিউ" : "Student Reviews"}
+          </span>
+          <h2 className={`text-3xl md:text-[42px] font-heading font-black tracking-tight leading-[1.12] ${isDark ? "text-white" : "text-slate-900"} ${bn}`}>
+            {language === "bn"
+              ? <>আমাদের শিক্ষার্থীরা যা <span className="text-[#003ECB]">বলেন</span></>
+              : <>What Our Students <span className="text-[#003ECB]">Say</span></>}
+          </h2>
+          <p className={`mt-4 text-[15px] leading-relaxed ${isDark ? "text-slate-400" : "text-slate-500"} ${bn}`}>
+            {language === "bn"
+              ? "Creative Solve CS-এ আমাদের সফল শিক্ষার্থীদের শেখার অভিজ্ঞতা শুনুন।"
+              : "Hear from our successful students about their learning experience at Creative Solve CS."}
+          </p>
+          <Link href="/contact"
+            className={`inline-flex items-center gap-2 mt-7 px-7 py-3 rounded-full bg-[#003ECB] hover:bg-[#002da3] text-white text-[13px] font-bold transition-all shadow-[0_8px_24px_rgba(0,62,203,0.25)] ${bn}`}>
+            <LuPencil size={15} />
+            {language === "bn" ? "রিভিউ দিন" : "Add Your Review"}
+          </Link>
+        </div>
+
+        {/* Carousel */}
+        <div className="overflow-hidden py-3" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+          <div
+            className="flex"
+            style={{
+              width: `${(loop.length / perView) * 100}%`,
+              transform: `translateX(-${index * (100 / loop.length)}%)`,
+              transition: animate ? "transform 0.6s cubic-bezier(0.4,0,0.2,1)" : "none",
+            }}
+          >
+            {loop.map((t, i) => (
+              <div key={`${t.id}-${i}`} className="shrink-0 px-3" style={{ width: `${100 / loop.length}%` }}>
+                <Card t={t} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Controls: arrows + dots */}
+        <div className="flex items-center justify-center gap-5 mt-10">
+          <button onClick={goPrev} aria-label="Previous"
+            className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${isDark ? "border-white/15 text-slate-300 hover:border-[#003ECB] hover:text-[#003ECB]" : "border-slate-200 text-slate-500 hover:border-[#003ECB] hover:text-[#003ECB]"}`}>
+            <LuChevronLeft size={18} />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {REVIEWS.map((_, i) => (
+              <button key={i} onClick={() => goTo(i)} aria-label={`Go to review ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${i === activeDot ? "w-7 bg-[#003ECB]" : `w-2 ${isDark ? "bg-white/20 hover:bg-white/40" : "bg-slate-300 hover:bg-slate-400"}`}`} />
             ))}
           </div>
 
-          {/* Card */}
-          <div className="flex-1 w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35 }}
-                className={`relative p-8 md:p-10 rounded-2xl border ${isDark ? "bg-white/5 border-white/10" : "bg-[#f8fafc] border-gray-100"}`}
-              >
-                <LuQuote size={36} className={`absolute top-6 right-6 ${isDark ? "text-white/10" : "text-slate-200"}`} />
-                <div className="flex items-center gap-1 mb-5">
-                  {[...Array(5)].map((_, i) => (
-                    <LuStar key={i} size={15} className={i < active.rating ? "text-[#F78F18] fill-[#F78F18]" : "text-slate-300"} />
-                  ))}
-                </div>
-                <p className={`text-[16px] md:text-[18px] leading-relaxed mb-8 ${isDark ? "text-slate-300" : "text-slate-700"} ${bn}`}>
-                  “{active.review}”
-                </p>
-                <div className={`flex items-center gap-4 pt-6 border-t ${isDark ? "border-white/5" : "border-gray-200"}`}>
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white text-lg flex-shrink-0"
-                    style={{ background: active.color }}
-                  >
-                    {active.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className={`font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>{active.name}</h4>
-                    <p className="text-[12px] text-[#0182E6] font-medium">{active.designation}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          <button onClick={goNext} aria-label="Next"
+            className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${isDark ? "border-white/15 text-slate-300 hover:border-[#003ECB] hover:text-[#003ECB]" : "border-slate-200 text-slate-500 hover:border-[#003ECB] hover:text-[#003ECB]"}`}>
+            <LuChevronRight size={18} />
+          </button>
+        </div>
 
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {testimonials.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveIndex(idx)}
-                  aria-label={`Go to testimonial ${idx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    idx === activeIndex ? "w-8 bg-[#0182E6]" : `w-1.5 ${isDark ? "bg-white/20" : "bg-slate-200"}`
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+        {/* Avatar row */}
+        <div className="flex items-center justify-center gap-2.5 mt-8">
+          {REVIEWS.map((t, i) => (
+            <button key={t.id} onClick={() => goTo(i)} aria-label={t.name}
+              className="rounded-full flex items-center justify-center font-bold text-white transition-all duration-300"
+              style={{
+                background: t.color,
+                width: i === activeDot ? 42 : 34,
+                height: i === activeDot ? 42 : 34,
+                fontSize: i === activeDot ? 16 : 13,
+                opacity: i === activeDot ? 1 : 0.45,
+                boxShadow: i === activeDot ? `0 0 0 3px ${isDark ? "#0a0a0a" : "#f8fafc"}, 0 0 0 5px ${t.color}` : "none",
+              }}>
+              {t.name.charAt(0)}
+            </button>
+          ))}
         </div>
       </div>
     </section>

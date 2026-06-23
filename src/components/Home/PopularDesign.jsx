@@ -10,6 +10,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import ProductCard from "@/components/sheard/ProductCard";
 import DesignPreviewModal from "@/components/sheard/DesignPreviewModal";
+import AmbientBg from "@/components/Home/AmbientBg";
 
 const PopularDesign = () => {
   const dispatch = useDispatch();
@@ -29,17 +30,18 @@ const PopularDesign = () => {
     {activeTemplate && (
       <DesignPreviewModal template={activeTemplate} onClose={() => setActiveTemplate(null)} />
     )}
-    <section className={`py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8fafc]"}`}>
-      <div className="container mx-auto px-6 max-w-7xl">
+    <section className={`relative overflow-hidden py-20 md:py-24 transition-colors duration-500 ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8fafc]"}`}>
+      <AmbientBg flip />
+      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 text-[#0182E6] text-[11px] font-semibold uppercase tracking-[0.25em] mb-4">
               <span className="w-8 h-px bg-[#F78F18]" />
-              {language === "bn" ? "জনপ্রিয় টেমপ্লেট" : "Popular Templates"}
+              {language === "bn" ? "ডিজাইন" : "Design"}
             </div>
             <h2 className={`text-3xl md:text-[40px] font-heading font-bold tracking-tight leading-[1.15] ${isDark ? "text-white" : "text-slate-900"} ${bn}`}>
-              {language === "bn" ? "প্রফেশনাল ডিজাইন টেমপ্লেট" : "Professional design templates"}
+              {language === "bn" ? "আমাদের ডিজাইন" : "Our Designs"}
             </h2>
           </div>
           <Link

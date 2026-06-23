@@ -10,10 +10,11 @@ import { useTheme } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
 
 /* ─── Design Template Card — simple image + title ─── */
-const DesignCard = ({ product, onCardClick, isDark, language }) => {
+const DesignCard = ({ product, isDark, language }) => {
     const bn = language === "bn" ? "hind-siliguri" : "";
     const img = product.images?.[0] || product.image || "/cat_graphic.png";
     const title = product.title || product.name || "Untitled";
+    const href = `/design-template/${product._id || product.id}`;
 
     return (
         <motion.div
@@ -21,24 +22,25 @@ const DesignCard = ({ product, onCardClick, isDark, language }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="group cursor-pointer"
-            onClick={onCardClick}
+            className="group"
         >
-            {/* Image */}
-            <div className="overflow-hidden mb-3">
-                <img
-                    src={img}
-                    alt={title}
-                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-            </div>
+            <Link href={href} className="block">
+                {/* Image */}
+                <div className="overflow-hidden mb-3 rounded-lg">
+                    <img
+                        src={img}
+                        alt={title}
+                        className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                </div>
 
-            {/* Title */}
-            <p className={`text-[13px] font-medium leading-snug line-clamp-1 transition-colors group-hover:text-[#003ECB] ${
-                isDark ? "text-slate-300" : "text-slate-700"
-            } ${bn}`}>
-                {title}
-            </p>
+                {/* Title */}
+                <p className={`text-[13px] font-medium leading-snug line-clamp-1 transition-colors group-hover:text-[#003ECB] ${
+                    isDark ? "text-slate-300" : "text-slate-700"
+                } ${bn}`}>
+                    {title}
+                </p>
+            </Link>
         </motion.div>
     );
 };

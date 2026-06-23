@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 import { LuArrowRight, LuAward, LuUsers, LuBookOpen } from "react-icons/lu";
+import AmbientBg from "@/components/Home/AmbientBg";
 
 const AboutMe = () => {
     const { language } = useLanguage();
@@ -32,8 +33,9 @@ const AboutMe = () => {
     ];
 
     return (
-        <section className={`py-20 md:py-24 transition-colors duration-500 overflow-hidden ${isDark ? "bg-[#050505]" : "bg-white"}`}>
-            <div className="container mx-auto px-4 max-w-7xl">
+        <section className={`relative py-20 md:py-24 transition-colors duration-500 overflow-hidden ${isDark ? "bg-[#050505]" : "bg-white"}`}>
+            <AmbientBg />
+            <div className="container relative z-10 mx-auto px-4 max-w-7xl">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 

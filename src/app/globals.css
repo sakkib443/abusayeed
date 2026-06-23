@@ -192,3 +192,52 @@ h6 {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* =====================================================
+   Ambient motion & texture — gives the homepage life
+   ===================================================== */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes floatY2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(16px); }
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(26px, -18px) scale(1.05); }
+  66% { transform: translate(-22px, 16px) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+
+.animate-floatY { animation: floatY 7s ease-in-out infinite; }
+.animate-floatY2 { animation: floatY2 9s ease-in-out infinite; }
+.animate-drift { animation: drift 22s ease-in-out infinite; }
+.animate-drift-slow { animation: drift 32s ease-in-out infinite; }
+.animate-pulse-soft { animation: pulseSoft 6s ease-in-out infinite; }
+
+/* faint dotted texture (uses currentColor) */
+.bg-dots {
+  background-image: radial-gradient(currentColor 1px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+/* soft radial fade so textures/orbs blend into the section edges */
+.mask-fade {
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floatY,
+  .animate-floatY2,
+  .animate-drift,
+  .animate-drift-slow,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+}

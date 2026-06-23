@@ -14,7 +14,6 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "./Logo";
-import CategoryNav from "./CategoryNav";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,7 +62,7 @@ const Navbar = () => {
     { href: "/courses", label: t("navbar.courses") },
     { href: "/design-template", label: language === "bn" ? "ডিজাইন" : "Design" },
     { href: "/portfolio", label: language === "bn" ? "পোর্টফোলিও" : "Portfolio" },
-    { href: "/about", label: t("navbar.about") },
+    { href: "/blog", label: language === "bn" ? "ব্লগ" : "Blog" },
     { href: "/contact", label: t("navbar.contact") },
   ];
 
@@ -245,9 +244,6 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Category bar (desktop) */}
-      <CategoryNav />
 
       {/* Mobile menu */}
       <AnimatePresence>
