@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
     LuArrowDown,
-    LuMoveRight,
     LuBriefcase,
     LuGraduationCap,
     LuAward,
@@ -20,21 +19,24 @@ import {
     LuMapPin,
     LuMail,
     LuPhone,
-    LuExternalLink,
+    LuCalendarDays,
+    LuUsers,
+    LuTarget,
 } from "react-icons/lu";
 import { FaFacebookF, FaWhatsapp } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
-import { API_URL } from "@/config/api";
-import DesignPreviewModal from "@/components/sheard/DesignPreviewModal";
+import PhotoGallery from "@/components/sheard/PhotoGallery";
+import CategoryShowcase from "@/components/Home/CategoryShowcase";
+import AmbientBg from "@/components/Home/AmbientBg";
 
 /* ─────────────────────────── data ─────────────────────────── */
 
 const STATS = [
-    { number: "12+", en: "Years Experience", bn: "বছরের অভিজ্ঞতা" },
-    { number: "4500+", en: "Students Trained", bn: "শিক্ষার্থী প্রশিক্ষিত" },
-    { number: "9", en: "Professional Roles", bn: "পেশাগত ভূমিকা" },
-    { number: "4", en: "Specializations", bn: "বিশেষায়িত ক্ষেত্র" },
+    { number: "12+", en: "Years Experience", bn: "বছরের অভিজ্ঞতা", icon: LuCalendarDays },
+    { number: "4500+", en: "Students Trained", bn: "শিক্ষার্থী প্রশিক্ষিত", icon: LuUsers },
+    { number: "9", en: "Professional Roles", bn: "পেশাগত ভূমিকা", icon: LuBriefcase },
+    { number: "4", en: "Specializations", bn: "বিশেষায়িত ক্ষেত্র", icon: LuTarget },
 ];
 
 const SKILLS = [
@@ -93,25 +95,6 @@ const PortfolioPage = () => {
     const isBn = language === "bn";
     const bn = isBn ? "hind-siliguri" : "";
 
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [activeTemplate, setActiveTemplate] = useState(null);
-
-    useEffect(() => {
-        const fetchWork = async () => {
-            try {
-                const res = await fetch(`${API_URL}/design-templates?limit=8`);
-                const data = await res.json();
-                if (data.success) setItems((data.data || []).slice(0, 8));
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchWork();
-    }, []);
-
     /* small reusable eyebrow heading */
     const Eyebrow = ({ children }) => (
         <span className="text-[#003ECB] text-[10px] font-black uppercase tracking-[0.3em]">
@@ -121,13 +104,6 @@ const PortfolioPage = () => {
 
     return (
         <>
-            {activeTemplate && (
-                <DesignPreviewModal
-                    template={activeTemplate}
-                    onClose={() => setActiveTemplate(null)}
-                />
-            )}
-
             <main className="min-h-screen bg-white dark:bg-[#020202] text-slate-900 dark:text-white selection:bg-[#003ECB] selection:text-white">
 
                 {/* ══════════════ HERO ══════════════ */}
@@ -229,28 +205,39 @@ const PortfolioPage = () => {
                     </div>
                 </section>
 
+                {/* ══════════════ PHOTO GALLERY ══════════════ */}
+                <PhotoGallery />
+
                 {/* ══════════════ STATS ══════════════ */}
-                <section className="bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-                    <div className="container mx-auto px-6 max-w-7xl">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-slate-200 dark:divide-white/8">
-                            {STATS.map((s, i) => (
-                                <motion.div key={i}
-                                    initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                                    transition={{ delay: 0.06 * i }}
-                                    className="py-10 px-6 text-center">
-                                    <p className="text-3xl md:text-4xl font-heading font-black text-[#003ECB]">{s.number}</p>
-                                    <p className={`text-slate-500 dark:text-slate-400 text-[11px] md:text-xs font-bold uppercase tracking-widest mt-1.5 ${bn}`}>
-                                        {isBn ? s.bn : s.en}
-                                    </p>
-                                </motion.div>
-                            ))}
+                <section className="relative overflow-hidden py-16 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
+                    <AmbientBg />
+                    <div className="container mx-auto px-6 max-w-7xl relative z-10">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+                            {STATS.map((s, i) => {
+                                const Icon = s.icon;
+                                return (
+                                    <motion.div key={i}
+                                        initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                                        transition={{ delay: 0.06 * i }}
+                                        className="group flex flex-col items-center text-center gap-3 py-8 px-5 rounded-2xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#111] hover:border-[#003ECB]/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,62,203,0.10)] transition-all">
+                                        <div className="w-12 h-12 rounded-2xl bg-[#003ECB]/10 group-hover:bg-[#003ECB] flex items-center justify-center transition-colors">
+                                            <Icon size={22} className="text-[#003ECB] group-hover:text-white transition-colors" />
+                                        </div>
+                                        <p className="text-3xl md:text-4xl font-heading font-black text-[#003ECB]">{s.number}</p>
+                                        <p className={`text-slate-500 dark:text-slate-400 text-[11px] md:text-xs font-bold uppercase tracking-widest ${bn}`}>
+                                            {isBn ? s.bn : s.en}
+                                        </p>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
 
                 {/* ══════════════ SKILLS ══════════════ */}
-                <section className="py-24 bg-white dark:bg-[#020202] border-b border-slate-100 dark:border-white/5">
-                    <div className="container mx-auto px-6 max-w-7xl">
+                <section className="relative overflow-hidden py-20 bg-white dark:bg-[#020202] border-b border-slate-100 dark:border-white/5">
+                    <AmbientBg flip />
+                    <div className="container mx-auto px-6 max-w-7xl relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                             className="mb-14">
@@ -294,8 +281,9 @@ const PortfolioPage = () => {
                 </section>
 
                 {/* ══════════════ EXPERIENCE + EDUCATION ══════════════ */}
-                <section className="py-24 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-                    <div className="container mx-auto px-6 max-w-7xl">
+                <section className="relative overflow-hidden py-20 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
+                    <AmbientBg />
+                    <div className="container mx-auto px-6 max-w-7xl relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                             className="mb-14">
@@ -377,8 +365,9 @@ const PortfolioPage = () => {
                 </section>
 
                 {/* ══════════════ SERVICES ══════════════ */}
-                <section className="py-24 bg-white dark:bg-[#020202] border-b border-slate-100 dark:border-white/5">
-                    <div className="container mx-auto px-6 max-w-7xl">
+                <section className="relative overflow-hidden py-20 bg-white dark:bg-[#020202] border-b border-slate-100 dark:border-white/5">
+                    <AmbientBg flip />
+                    <div className="container mx-auto px-6 max-w-7xl relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                             className="mb-14">
@@ -408,76 +397,10 @@ const PortfolioPage = () => {
                     </div>
                 </section>
 
-                {/* ══════════════ SELECTED WORK ══════════════ */}
-                <section id="work" className="scroll-mt-24 py-24 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-                    <div className="container mx-auto px-6 max-w-7xl">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                            className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-                            <div>
-                                <Eyebrow>{isBn ? "পোর্টফোলিও" : "Portfolio"}</Eyebrow>
-                                <h2 className={`text-4xl md:text-5xl font-heading font-black mt-2 ${bn}`}>
-                                    {isBn ? <>নির্বাচিত <span className="text-[#003ECB]">কাজ</span></> : <>Selected <span className="text-[#003ECB]">Work</span></>}
-                                </h2>
-                            </div>
-                            <Link href="/design-template"
-                                className={`group inline-flex items-center gap-2 text-sm font-bold text-[#003ECB] hover:gap-3 transition-all ${bn}`}>
-                                {isBn ? "সব কাজ দেখুন" : "View all work"}
-                                <LuMoveRight className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </motion.div>
-
-                        {loading ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {[...Array(8)].map((_, i) => (
-                                    <div key={i} className="animate-pulse">
-                                        <div className="aspect-[4/3] rounded-2xl bg-slate-100 dark:bg-white/5 mb-3" />
-                                        <div className="h-3 w-1/2 rounded bg-slate-100 dark:bg-white/5" />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : items.length === 0 ? (
-                            <div className="py-20 text-center text-slate-400">
-                                {isBn ? "কোনো কাজ পাওয়া যায়নি" : "No work to show yet"}
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {items.map((item, idx) => {
-                                    const img = item.images?.[0] || item.image || "/cat_graphic.png";
-                                    const title = item.title || item.name || "Untitled";
-                                    const catName = isBn
-                                        ? item.category?.name_bn || item.category?.name || item.templateType || "Design"
-                                        : item.category?.name || item.templateType || "Design";
-
-                                    return (
-                                        <motion.button key={item._id || idx}
-                                            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                                            transition={{ duration: 0.4, delay: (idx % 4) * 0.05 }}
-                                            onClick={() => setActiveTemplate(item)}
-                                            className="group text-left">
-                                            <div className="relative overflow-hidden rounded-2xl mb-3 border border-slate-200 dark:border-white/8">
-                                                <img
-                                                    src={img}
-                                                    alt={title}
-                                                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                                    <span className="inline-flex items-center gap-1.5 text-white text-xs font-bold">
-                                                        <LuExternalLink size={13} /> {isBn ? "প্রিভিউ" : "Preview"}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p className={`text-[13px] font-semibold leading-snug line-clamp-1 text-slate-700 dark:text-slate-200 group-hover:text-[#003ECB] transition-colors ${bn}`}>
-                                                {title}
-                                            </p>
-                                            <p className="text-[11px] text-slate-400 mt-0.5">{catName}</p>
-                                        </motion.button>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </div>
-                </section>
+                {/* ══════════════ CATEGORIES ══════════════ */}
+                <div id="work" className="scroll-mt-24">
+                    <CategoryShowcase />
+                </div>
 
                 {/* ══════════════ CONTACT / CTA ══════════════ */}
                 <section className="py-28 px-6 bg-white dark:bg-[#020202]">
