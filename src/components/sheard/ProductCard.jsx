@@ -9,39 +9,38 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
 
-/* ─── Design Template Card — simple image + title ─── */
-const DesignCard = ({ product, isDark, language }) => {
+/* ─── Design Template Card — simple image + title; opens preview modal on click ─── */
+const DesignCard = ({ product, isDark, language, onCardClick }) => {
     const bn = language === "bn" ? "hind-siliguri" : "";
     const img = product.images?.[0] || product.image || "/cat_graphic.png";
     const title = product.title || product.name || "Untitled";
-    const href = `/design-template/${product._id || product.id}`;
 
     return (
-        <motion.div
+        <motion.button
+            type="button"
+            onClick={() => onCardClick?.(product)}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="group"
+            className="group block w-full text-left cursor-pointer"
         >
-            <Link href={href} className="block">
-                {/* Image */}
-                <div className="overflow-hidden mb-3 rounded-lg">
-                    <img
-                        src={img}
-                        alt={title}
-                        className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                </div>
+            {/* Image */}
+            <div className="overflow-hidden mb-3 rounded-lg">
+                <img
+                    src={img}
+                    alt={title}
+                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+            </div>
 
-                {/* Title */}
-                <p className={`text-[13px] font-medium leading-snug line-clamp-1 transition-colors group-hover:text-[#003ECB] ${
-                    isDark ? "text-slate-300" : "text-slate-700"
-                } ${bn}`}>
-                    {title}
-                </p>
-            </Link>
-        </motion.div>
+            {/* Title */}
+            <p className={`text-[13px] font-medium leading-snug line-clamp-1 transition-colors group-hover:text-[#003ECB] ${
+                isDark ? "text-slate-300" : "text-slate-700"
+            } ${bn}`}>
+                {title}
+            </p>
+        </motion.button>
     );
 };
 
